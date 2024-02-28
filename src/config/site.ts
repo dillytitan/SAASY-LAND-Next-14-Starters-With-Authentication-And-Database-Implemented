@@ -12,13 +12,13 @@ const links = {
 }
 
 export const siteConfig = {
-  name: "SaaSy Land",
+  name: "Orange Cube",
   description:
     "An open-source starter for Next.js 14 full-stack projects with advanced authentication and several database configurations. The aim of this project is to provide a solid foundation for faster building and launching SaaS products, marketing sites, blogs, and more.",
   links,
-  url: "https://saasyland.com",
+  url: "https://orangecube.art",
   ogImage: links.openGraphImage,
-  author: "pjborowiecki",
+  author: "frenshouse",
   hostingRegion: "fra1",
   keywords: ["SaaS", "Next.js", "Template"],
   navItems: [

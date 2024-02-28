@@ -13,9 +13,9 @@ export function NewsletterSection(): JSX.Element {
         <div className="flex flex-col items-center gap-6 text-center">
           <h2 className="font-urbanist text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <Balancer>
-              Sing Up to{" "}
-              <span className="bg-gradient-to-r from-pink-600 to-purple-400 bg-clip-text text-transparent">
-                Our Newsletter
+              Sign Up to{" "}
+              <span className="bg-gradient-to-r from-orange-600 to-yellow-400 bg-clip-text text-transparent">
+                Orange Cube
               </span>
             </Balancer>
           </h2>
