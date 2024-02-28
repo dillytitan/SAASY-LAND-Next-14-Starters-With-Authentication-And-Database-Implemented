@@ -8,7 +8,7 @@ const links = {
   discord: "",
   authorsWebsite: "https://frens.house",
   authorsGitHub: "",
-  openGraphImage: "https://imagedelivery.net/vsd_Iz6gESJTcupddfgvyQ/0c8c5618-d989-4d76-92f1-9bf4774a2c00/public",
+  openGraphImage: "https://symbl-world.akamaized.net/i/webp/00/65e1ab8e61876e552b32678779e236.webp",
 }
 
 export const siteConfig = {
