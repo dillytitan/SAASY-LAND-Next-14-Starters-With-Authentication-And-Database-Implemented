@@ -19,7 +19,7 @@ export default function LandingPage(): JSX.Element {
       {/* <TestimonialsSection />
       <PricingSection /> */}
       {/* <FAQSection /> */}
-      <ContactSection />
+      {/* <ContactSection /> */}
     </div>
   )
 }
