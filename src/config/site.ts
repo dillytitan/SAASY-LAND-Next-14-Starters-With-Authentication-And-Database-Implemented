@@ -2,25 +2,25 @@ import { type NavItem, type NavItemFooter } from "@/types"
 
 const links = {
   github:
-    "https://github.com/pjborowiecki/SAASY-LAND-Next-14-Starters-With-Authentication-And-Database-Implemented",
-  twitter: "https://twitter.com/pjborowiecki",
-  linkedin: "https://www.linkedin.com/in/pjborowiecki",
+    "",
+  twitter: "https://twitter.com/frenshouse",
+  linkedin: "",
   discord: "",
-  authorsWebsite: "https://pjborowiecki.com",
-  authorsGitHub: "https://github.com/pjborowiecki",
+  authorsWebsite: "https://frens.house",
+  authorsGitHub: "",
   openGraphImage: "https://imagedelivery.net/vsd_Iz6gESJTcupddfgvyQ/0c8c5618-d989-4d76-92f1-9bf4774a2c00/public",
 }
 
 export const siteConfig = {
   name: "Orange Cube",
   description:
-    "An open-source starter for Next.js 14 full-stack projects with advanced authentication and several database configurations. The aim of this project is to provide a solid foundation for faster building and launching SaaS products, marketing sites, blogs, and more.",
+    "Orange Cube Description goes here",
   links,
   url: "https://orangecube.art",
   ogImage: links.openGraphImage,
   author: "frenshouse",
-  hostingRegion: "fra1",
-  keywords: ["SaaS", "Next.js", "Template"],
+  hostingRegion: "en1",
+  keywords: ["orange cube", "art", "Template"],
   navItems: [
     {
       title: "About",
