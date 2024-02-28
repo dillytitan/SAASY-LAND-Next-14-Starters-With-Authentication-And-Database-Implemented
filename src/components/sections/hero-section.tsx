@@ -17,7 +17,7 @@ export async function HeroSection() {
       className="mt-16 w-full md:mt-48"
     >
       <div className="container flex flex-col items-center gap-6 text-center">
-        {gitHubStars ? (
+        {/* {gitHubStars ? (
           <Link
             href={siteConfig.links.github}
             target="_blank"
@@ -34,12 +34,12 @@ export async function HeroSection() {
             </Badge>
             <span className="sr-only">GitHub</span>
           </Link>
-        ) : null}
+        ) : null} */}
         <h1 className="animate-fade-up font-urbanist text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
           <Balancer>
             Fast-Track Your Business Launch with{" "}
             <span className="bg-gradient-to-r from-pink-600 to-purple-400 bg-clip-text font-extrabold text-transparent">
-              SaaSy Land
+              Orange Cube
             </span>
           </Balancer>
         </h1>
