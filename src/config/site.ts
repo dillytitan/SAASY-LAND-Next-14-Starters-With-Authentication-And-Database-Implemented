@@ -8,7 +8,7 @@ const links = {
   discord: "",
   authorsWebsite: "https://pjborowiecki.com",
   authorsGitHub: "https://github.com/pjborowiecki",
-  openGraphImage: "https://saasyland.com/images/opengraph-image.png",
+  openGraphImage: "https://imagedelivery.net/vsd_Iz6gESJTcupddfgvyQ/0c8c5618-d989-4d76-92f1-9bf4774a2c00/public",
 }
 
 export const siteConfig = {
