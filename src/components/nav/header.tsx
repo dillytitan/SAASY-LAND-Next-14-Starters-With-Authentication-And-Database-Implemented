@@ -16,8 +16,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { SignOutButton } from "@/components/auth/signout-button"
 import { Icons } from "@/components/icons"
-import { Navigation } from "@/components/nav/navigation"
-import { NavigationMobile } from "@/components/nav/navigation-mobile"
+// import { Navigation } from "@/components/nav/navigation"
+// import { NavigationMobile } from "@/components/nav/navigation-mobile"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 export async function Header(): Promise<JSX.Element> {
