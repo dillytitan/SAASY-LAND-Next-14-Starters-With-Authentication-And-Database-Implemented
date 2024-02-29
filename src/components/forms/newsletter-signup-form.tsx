@@ -85,7 +85,7 @@ export function NewsletterSignUpForm(): JSX.Element {
               <FormControl className="rounded-r-none">
                 <Input
                   type="email"
-                  placeholder="johnsmith@gmail.com"
+                  placeholder="Basquiat@orangecube.art"
                   className="h-10 placeholder:text-xs md:h-12 md:placeholder:text-sm"
                   {...field}
                 />

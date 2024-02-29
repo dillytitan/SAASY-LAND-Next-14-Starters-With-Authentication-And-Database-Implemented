@@ -113,7 +113,7 @@ export function SignInWithPasswordForm(): JSX.Element {
               <FormControl>
                 <Input
                   type="text"
-                  placeholder="johnsmith@gmail.com"
+                  placeholder="Basquiat@orangecube.art"
                   {...field}
                 />
               </FormControl>
