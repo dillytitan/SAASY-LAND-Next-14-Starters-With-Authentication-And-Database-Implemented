@@ -12,7 +12,7 @@ const links = {
 }
 
 export const siteConfig = {
-  name: "Orange Cube",
+  name: "ORANGE CUBE",
   description:
     "Orange Cube Description goes here",
   links,

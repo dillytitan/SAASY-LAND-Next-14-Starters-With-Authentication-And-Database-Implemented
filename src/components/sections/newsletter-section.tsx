@@ -16,17 +16,14 @@ export function NewsletterSection(): JSX.Element {
         <div className="flex flex-col items-center gap-6 text-center">
           <h2 className="font-urbanist text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <Balancer>
-              Sign Up to{" "}
               <span className="bg-gradient-to-r from-orange-600 to-yellow-400 bg-clip-text text-transparent">
-                Orange Cube
+                ORANGE CUBE
               </span>
             </Balancer>
           </h2>
           <h3 className="max-w-[42rem] text-muted-foreground sm:text-xl sm:leading-8">
             <Balancer>
-              Never miss a thing with our newsletter. We will send you updates
-              on major released or changes to the product. We will never spam
-              you.
+              Preserving artifacts, defining contemporary.
             </Balancer>
           </h3>
         </div>

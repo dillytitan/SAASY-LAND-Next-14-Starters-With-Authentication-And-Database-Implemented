@@ -102,12 +102,12 @@ export async function Header(): Promise<JSX.Element> {
               </DropdownMenu>
             ) : (
               <Link
-                aria-label="Get started"
+                aria-label="Connect Wallet"
                 href="/signup"
                 className={cn(buttonVariants({ size: "sm" }), "ml-2")}
               >
-                Get Started
-                <span className="sr-only">Get Started</span>
+                Connect Wallet
+                <span className="sr-only">Connect Wallet</span>
               </Link>
             )}
           </nav>
