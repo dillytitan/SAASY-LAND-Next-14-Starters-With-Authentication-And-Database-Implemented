@@ -11,7 +11,7 @@ export function NewsletterSection(): JSX.Element {
     >
       <div className="container flex max-w-6xl flex-col items-center justify-center gap-8">
         {/* Include the GIF using its relative path */}
-        <img src="/opengraph-image.gif" alt="Your GIF" className="mb-2" />
+        <img src="/orange-cube-main.png" alt="Your GIF" className="mb-2" />
 
         <div className="flex flex-col items-center gap-6 text-center">
           <h2 className="font-urbanist text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">

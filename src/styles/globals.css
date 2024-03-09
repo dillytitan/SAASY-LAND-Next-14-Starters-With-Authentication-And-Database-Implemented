@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @font-face {
+  font-family: 'Computer Modern Serif Bold';
+  src: url('/fonts/computer-modern/cmu.bright-roman.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Computer Modern Concrete Roman';
+  src: url('/fonts/computer-modern/cmu.bright-roman.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+} */
+
 @layer base {
   :root {
     --background: 0 0% 100%;

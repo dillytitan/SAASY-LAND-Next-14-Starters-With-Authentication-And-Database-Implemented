@@ -14,10 +14,12 @@ module.exports = {
       },
     },
     extend: {
+      // Replace or update fontFamily configuration
       fontFamily: {
-        inter: ["var(--font-inter)"],
-        urbanist: ["var(--font-urbanist)"],
-        heading: ["var(--font-heading)"],
+        sans: ['"Computer Modern"', 'serif'], // Using 'sans' as an example. Adjust as needed.
+        // Add more styles if you have Computer Modern variants, for example:
+        serif: ['"Computer Modern Serif"', 'serif'],
+        // Ensure the font names match those defined within your @font-face or font files.
       },
       colors: {
         border: "hsl(var(--border))",

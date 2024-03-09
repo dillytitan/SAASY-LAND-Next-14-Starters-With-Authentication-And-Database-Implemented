@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { auth } from "@/auth"
-
+import Image from "next/image"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -30,7 +30,7 @@ export async function Header(): Promise<JSX.Element> {
           href="/"
           className="flex items-center justify-center gap-2 text-lg font-bold tracking-wide transition-all duration-300 ease-in-out"
         >
-          <span style={{ color: 'orange' }}>🟧</span>
+          <Image src="/orange-cube-logo.png" width={30} height={30} alt="logo" />
           <span className="hidden md:flex">{siteConfig.name}</span>
         </Link>
         {/* <Navigation navItems={siteConfig.navItems} /> */}

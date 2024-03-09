@@ -54,7 +54,7 @@ export function NewsletterWelcomeEmail(): JSX.Element {
                 </Link>
               </Text>
               <Text className="mb-0 mt-4">
-                @ orangecube.art {new Date().getFullYear()}
+                @orangecube.art {new Date().getFullYear()}
               </Text>
             </Section>
           </Container>

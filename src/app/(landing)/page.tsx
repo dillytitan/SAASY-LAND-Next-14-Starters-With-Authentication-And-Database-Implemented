@@ -1,5 +1,5 @@
-import { ContactSection } from "@/components/sections/contact-section"
 import { NewsletterSection } from "@/components/sections/newsletter-section"
+// import { ContactSection } from "@/components/sections/contact-section"
 // import { BenefitsSection } from "@/components/sections/benefits-section"
 // import { FAQSection } from "@/components/sections/faq-section"
 // import { FeaturesSection } from "@/components/sections/features-section"
