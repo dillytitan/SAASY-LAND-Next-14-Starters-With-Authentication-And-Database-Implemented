@@ -1,6 +1,6 @@
 import "@/styles/globals.css"
 import "@/styles/mdx.css"
-
+import Head from "next/head"
 import * as React from "react"
 import type { Metadata, Viewport } from "next"
 import { env } from "@/env.mjs"
@@ -73,6 +73,31 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
   return (
     <html lang="en" className="overflow-x-hidden overflow-y-scroll">
+      <Head>
+        {/* Basic Meta Tags */}
+        <title>Orangecube</title>
+        <meta name="description" content={siteConfig.description} />
+        <meta name="keywords" content={siteConfig.keywords.join(', ')} />
+        <link rel="icon" href="/favicon.ico" />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={siteConfig.url} />
+        <meta property="og:title" content={siteConfig.name} />
+        <meta property="og:description" content={siteConfig.description} />
+        <meta property="og:image" content={siteConfig.links.openGraphImage} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={siteConfig.url} />
+        <meta name="twitter:title" content={siteConfig.name} />
+        <meta name="twitter:description" content={siteConfig.description} />
+        <meta name="twitter:image" content={siteConfig.links.openGraphImage} />
+        <meta name="twitter:creator" content={siteConfig.author} />
+
+        {/* Additional tags for LinkedIn, Slack, and Discord mostly rely on the correct Open Graph tags */}
+
+      </Head>
       <body
         className={cn(
           "w-full bg-background bg-gradient-to-r from-background to-pink-400/10 font-sans antialiased",

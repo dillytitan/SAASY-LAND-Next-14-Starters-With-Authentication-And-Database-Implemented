@@ -3,10 +3,10 @@ import { type NavItem, type NavItemFooter } from "@/types"
 const links = {
   github:
     "",
-  twitter: "https://twitter.com/frenshouse",
+  twitter: "https://twitter.com/orangecube_art",
   linkedin: "",
   discord: "",
-  authorsWebsite: "https://frens.house",
+  authorsWebsite: "https://orangecube.art",
   authorsGitHub: "",
   openGraphImage: "/opengraph-image.png",
 }
@@ -14,13 +14,13 @@ const links = {
 export const siteConfig = {
   name: "ORANGE CUBE",
   description:
-    "Orange Cube Description goes here",
+    "Preserving artifacts, defining contemporary.",
   links,
   url: "https://orangecube.art",
   ogImage: links.openGraphImage,
   author: "frenshouse",
   hostingRegion: "en1",
-  keywords: ["orange cube", "art", "Template"],
+  keywords: ["orange cube", "art", "bitcoin"],
   navItems: [
     {
       title: "About",
