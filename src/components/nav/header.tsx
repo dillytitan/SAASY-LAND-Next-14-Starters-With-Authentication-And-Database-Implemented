@@ -2,20 +2,20 @@ import Link from "next/link"
 import { auth } from "@/auth"
 import Image from "next/image"
 import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { buttonVariants } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { SignOutButton } from "@/components/auth/signout-button"
-import { Icons } from "@/components/icons"
+// import { cn } from "@/lib/utils"
+// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+// import { buttonVariants } from "@/components/ui/button"
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuGroup,
+//   DropdownMenuItem,
+//   DropdownMenuLabel,
+//   DropdownMenuSeparator,
+//   DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu"
+// import { SignOutButton } from "@/components/auth/signout-button"
+// import { Icons } from "@/components/icons"
 // import { Navigation } from "@/components/nav/navigation"
 // import { NavigationMobile } from "@/components/nav/navigation-mobile"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -30,7 +30,7 @@ export async function Header(): Promise<JSX.Element> {
           href="/"
           className="flex items-center justify-center gap-2 text-lg font-bold tracking-wide transition-all duration-300 ease-in-out"
         >
-          <Image src="/orange-cube-logo.png" width={30} height={30} alt="logo" />
+          <Image src="/orangecube-logo.png" width={30} height={30} alt="logo" />
           <span className="hidden md:flex">{siteConfig.name}</span>
         </Link>
         {/* <Navigation navItems={siteConfig.navItems} /> */}
@@ -38,7 +38,7 @@ export async function Header(): Promise<JSX.Element> {
           <ThemeToggle />
           {/* <NavigationMobile navItems={siteConfig.navItems} /> */}
 
-          <nav className="space-x-1">
+          {/* <nav className="space-x-1">
             {session?.user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger
@@ -110,7 +110,7 @@ export async function Header(): Promise<JSX.Element> {
                 <span className="sr-only">Connect Wallet</span>
               </Link>
             )}
-          </nav>
+          </nav> */}
         </div>
       </div>
     </header>

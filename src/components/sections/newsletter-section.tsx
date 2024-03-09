@@ -1,6 +1,5 @@
 import Balancer from "react-wrap-balancer"
-
-import { NewsletterSignUpForm } from "@/components/forms/newsletter-signup-form"
+import JoinDiscordButton from "../ui/join-discord"
 
 export function NewsletterSection(): JSX.Element {
   return (
@@ -10,11 +9,10 @@ export function NewsletterSection(): JSX.Element {
       className="w-full bg-background py-16"
     >
       <div className="container flex max-w-6xl flex-col items-center justify-center gap-8">
-        {/* Include the GIF using its relative path */}
         <img src="/orange-cube-main.png" alt="Your GIF" className="mb-2" />
 
         <div className="flex flex-col items-center gap-6 text-center">
-          <h2 className="font-urbanist text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <Balancer>
               <span className="bg-gradient-to-r from-orange-600 to-yellow-400 bg-clip-text text-transparent">
                 ORANGE CUBE
@@ -28,8 +26,9 @@ export function NewsletterSection(): JSX.Element {
           </h3>
         </div>
 
-        <div className="w-full max-w-lg md:max-w-xl">
-          <NewsletterSignUpForm />
+        <div className="flex w-full max-w-lg items-center justify-center md:max-w-xl">
+        <JoinDiscordButton inviteLink="https://discord.gg/4RvS8ZwRcj" />
+          {/* <NewsletterSignUpForm /> */}
         </div>
       </div>
     </section>
