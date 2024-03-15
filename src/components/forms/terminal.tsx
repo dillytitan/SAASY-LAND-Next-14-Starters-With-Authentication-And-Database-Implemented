@@ -76,7 +76,8 @@ const Terminal: React.FC = () => {
         break;
       case 'logo':
         // Replace the placeholder with your actual ASCII art logo
-        const asciiLogo = `YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+        const asciiLogo = 
+        `YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
         YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
         YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
         YYYYYYYYYYYYYYYYYYJJJJJJJJJJJJJJJJJJJJJJJJJJJYYYYYYYYYYJJJJJJJJJJJJJJJJJJJJJJJJJJJYYYYYYYYYYYYYYYYYY
@@ -179,9 +180,10 @@ const Terminal: React.FC = () => {
         <div key={index}>{item}</div>
       ))}
       <div className="flex">
-        <span>admin@orangecube: ~/ </span>
+        <span className="text-orange-500">admin@orangecube:</span>
+        <span> ~/ </span>
         <span className="text-white">{input}</span>
-        <div className="inline-block w-2 h-5 bg-white animate-pulse"></div>
+        <div className="inline-block h-5 w-2 animate-pulse bg-white"></div>
       </div>
     </div>
   );
