@@ -18,8 +18,8 @@ export const siteConfig = {
   links,
   url: "https://orangecube.art",
   ogImage: links.openGraphImage,
-  author: "frenshouse",
-  hostingRegion: "en1",
+  author: "Orangecube",
+  hostingRegion: "en",
   keywords: ["orange cube", "art", "bitcoin"],
   navItems: [
     {

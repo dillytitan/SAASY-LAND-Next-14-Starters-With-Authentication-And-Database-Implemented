@@ -1,17 +1,16 @@
-import { Inter, Urbanist } from "next/font/google"
 import localFont from "next/font/local"
 
-export const fontInter = Inter({
-  subsets: ["latin"],
+export const fontInter = localFont({
+  src: "../../public/fonts/cmu.bright-roman.ttf",
   variable: "--font-inter",
 })
 
-export const fontUrbanist = Urbanist({
-  subsets: ["latin"],
+export const fontUrbanist = localFont({
+  src: "../../public/fonts/cmu.bright-roman.ttf",
   variable: "--font-urbanist",
 })
 
 export const fontHeading = localFont({
-  src: "../../public/fonts/cal-sans-semi-bold.woff2",
+  src: "../../public/fonts/cmu.concrete-roman.ttf",
   variable: "--font-heading",
 })

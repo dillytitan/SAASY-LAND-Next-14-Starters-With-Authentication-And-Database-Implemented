@@ -1,6 +1,7 @@
+'use client'
 import Balancer from "react-wrap-balancer"
 import JoinDiscordButton from "../ui/join-discord"
-
+import Terminal from "../forms/terminal"
 export function NewsletterSection(): JSX.Element {
   return (
     <section
@@ -28,8 +29,10 @@ export function NewsletterSection(): JSX.Element {
 
         <div className="flex w-full max-w-lg items-center justify-center md:max-w-xl">
         <JoinDiscordButton inviteLink="https://discord.gg/4RvS8ZwRcj" />
+        
           {/* <NewsletterSignUpForm /> */}
         </div>
+        <Terminal />
       </div>
     </section>
   )

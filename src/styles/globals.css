@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @font-face {
+@font-face {
   font-family: 'Computer Modern Serif Bold';
   src: url('/fonts/computer-modern/cmu.bright-roman.ttf') format('truetype');
   font-weight: bold;
@@ -14,7 +14,7 @@
   src: url('/fonts/computer-modern/cmu.bright-roman.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-} */
+}
 
 @layer base {
   :root {
@@ -74,4 +74,24 @@
       "rlig" 1,
       "calt" 1;
   }
+}
+
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.blinking-cursor {
+  animation: blink 1s step-start 0s infinite;
+}
+.caret-transparent {
+  caret-color: transparent;
 }

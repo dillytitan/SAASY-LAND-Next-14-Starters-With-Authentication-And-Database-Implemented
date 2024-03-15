@@ -95,7 +95,7 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
         <meta name="twitter:image" content={siteConfig.links.openGraphImage} />
         <meta name="twitter:creator" content={siteConfig.author} />
 
-        {/* Additional tags for LinkedIn, Slack, and Discord mostly rely on the correct Open Graph tags */}
+        {/* Add additional tags*/}
 
       </Head>
       <body
