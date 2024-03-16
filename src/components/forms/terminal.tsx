@@ -252,7 +252,7 @@ useEffect(() => {
       ref={terminalRef}
       tabIndex={0}
       onKeyDown={handleKeyDown as React.KeyboardEventHandler<HTMLDivElement>}
-      className="h-[900px] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap break-words bg-black p-4 font-space-mono text-white"
+      className="md:h-[900px] h-[300px] text-xs md:text-md w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap break-words bg-black p-4 font-space-mono text-white"
     >
       {history.map((item, index) => (
         <div key={index}>{item}</div>
