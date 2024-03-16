@@ -23,7 +23,7 @@ export function NewsletterWelcomeEmail(): JSX.Element {
       </Head>
       <Preview>{previewText}</Preview>
       <Tailwind>
-        <Body className="mx-auto bg-zinc-50 font-sans">
+        <Body className="mx-auto bg-zinc-50 font-space-mono">
           <Container className="mx-auto my-[40px] max-w-2xl rounded p-4">
             <Section className="mt-4">
               <Heading className="text-center text-2xl font-semibold text-zinc-950">

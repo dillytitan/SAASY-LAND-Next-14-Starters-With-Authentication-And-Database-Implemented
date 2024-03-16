@@ -27,7 +27,7 @@ export function PricingSection(): JSX.Element {
     >
       <div className="container grid max-w-6xl gap-4 md:gap-8">
         <div className="flex flex-col items-center gap-6 text-center">
-          <h2 className="font-urbanist text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <h2 className="font-tech text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <Balancer>
               It&apos;s{" "}
               <span className="bg-gradient-to-r from-pink-600 to-purple-400 bg-clip-text text-transparent">
@@ -67,7 +67,7 @@ export function PricingSection(): JSX.Element {
               )}
             >
               <CardHeader className="overflow-hidden rounded-t-lg bg-gradient-to-r from-pink-600/10 to-purple-400/10">
-                <CardTitle className="font-urbanist text-2xl tracking-wide">
+                <CardTitle className="font-tech text-2xl tracking-wide">
                   <Balancer>{plan.name}</Balancer>
                 </CardTitle>
 

@@ -16,10 +16,7 @@ module.exports = {
     extend: {
       // Replace or update fontFamily configuration
       fontFamily: {
-        sans: ['"Computer Modern"', 'serif'], // Using 'sans' as an example. Adjust as needed.
-        // Add more styles if you have Computer Modern variants, for example:
-        serif: ['"Computer Modern Serif"', 'serif'],
-        // Ensure the font names match those defined within your @font-face or font files.
+        'space-mono': 'var(--font-space-mono)',
       },
       colors: {
         border: "hsl(var(--border))",

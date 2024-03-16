@@ -21,7 +21,7 @@ export function FeaturesSection() {
     >
       <div className="container relative grid gap-16">
         <div className="flex w-full flex-col items-center gap-6 text-center">
-          <h2 className="font-urbanist text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <h2 className="font-tech text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <Balancer>
               Discover Our <br />
               <span className="bg-gradient-to-r from-pink-600 to-purple-400 bg-clip-text text-transparent">

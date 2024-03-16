@@ -15,7 +15,7 @@ export function BenefitsSection(): JSX.Element {
     <section id="about-section" aria-label="about section" className="w-full">
       <div className="container grid max-w-6xl justify-center gap-16">
         <div className="flex flex-col items-center gap-6 text-center">
-          <h2 className="font-urbanist text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <h2 className="font-tech text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <Balancer>
               Why{" "}
               <span className="relative bg-gradient-to-r from-pink-600 to-purple-400 bg-clip-text font-extrabold text-transparent">
@@ -45,7 +45,7 @@ export function BenefitsSection(): JSX.Element {
                 <CardDescription className="py-2 text-base font-medium tracking-wide text-muted-foreground">
                   Incredible Time Saver
                 </CardDescription>
-                <CardTitle className="font-urbanist text-3xl font-black tracking-wide">
+                <CardTitle className="font-tech text-3xl font-black tracking-wide">
                   <Balancer>
                     Get a Head Start <br className="hidden md:inline-block" />{" "}
                     on Your Competitors
@@ -98,7 +98,7 @@ export function BenefitsSection(): JSX.Element {
                 <CardDescription className="py-2 text-base font-medium tracking-wide text-muted-foreground">
                   Latest and Greatest in Tech
                 </CardDescription>
-                <CardTitle className="font-urbanist text-3xl font-black tracking-wide">
+                <CardTitle className="font-tech text-3xl font-black tracking-wide">
                   <Balancer>Take Advantage of Modern Technologies</Balancer>
                 </CardTitle>
               </CardHeader>
@@ -131,7 +131,7 @@ export function BenefitsSection(): JSX.Element {
                 <CardDescription className="py-2 text-base font-medium tracking-wide text-muted-foreground">
                   High Quality Implementation
                 </CardDescription>
-                <CardTitle className="font-urbanist text-3xl font-black tracking-wide">
+                <CardTitle className="font-tech text-3xl font-black tracking-wide">
                   <Balancer>Know Everything Works As Expected</Balancer>
                 </CardTitle>
               </CardHeader>
@@ -162,7 +162,7 @@ export function BenefitsSection(): JSX.Element {
                 <CardDescription className="py-2 text-base font-medium tracking-wide text-muted-foreground">
                   Flexibility and Support
                 </CardDescription>
-                <CardTitle className="font-urbanist text-3xl font-black tracking-wide">
+                <CardTitle className="font-tech text-3xl font-black tracking-wide">
                   <Balancer>
                     Easily Customize <br /> Every Single Detail
                   </Balancer>
