@@ -1,5 +1,6 @@
 // Import React and useState, useEffect, useRef hooks
 import React, { useState, useEffect, useRef } from 'react';
+import { kv } from "@vercel/kv";
 
 // Define type for questions and history items
 type Question = {
@@ -10,10 +11,14 @@ type Question = {
 
 type HistoryItem = React.ReactNode;
 
+const generateUniqueCode = () => {
+  // Example: Generate a random code. Adjust the method according to your requirements
+  return Math.random().toString(36).substr(2, 9);
+};
 
 
 const questions: Question[] = [
-  { prompt: "Enter the cube?", answer: "y", hint: "" }, // This is a Y or N question, so no hint needed.
+  { prompt: "Enter the cube? (y/n)", answer: "y", hint: "" },
   { prompt: "Wen?", answer: "2009", hint: "What year did it start?" },
   { prompt: "Why?", answer: "second bailout", hint: "Banks on the brink of _______________________?" },
   { prompt: "What?", answer: "genesis block", hint: "In the beginning, what happened?" },
@@ -38,7 +43,7 @@ const fileContents = {
 
 >> David - Chief of Marketing
 
->> Erwin - Head of Design
+>> Erwin - Art Director
 
 >> Shawn - Lead Dev
 
@@ -60,14 +65,14 @@ const fileContents = {
 
 "mission.txt": `“To preserve artifacts, and define contemporary”
 
-Orange Cube is dedicated to showcasing the finest emerging digital art, inscribing it onto Bitcoin, and providing curated collections that are accessible to all collectors. Our mission goes beyond profitability, aiming to spark innovation and foster a vibrant community around on-chain art inscriptions.`,
+>> Orange Cube is dedicated to showcasing the finest emerging digital art, inscribing it onto Bitcoin, and providing curated collections that are accessible to all collectors. Our mission goes beyond profitability, aiming to spark innovation and foster a vibrant community around on-chain art inscriptions.`,
 
   "contact.txt": `Get in Touch with Orangecube
 
-We'd love to hear from you! Whether you're interested in our projects, looking to collaborate, or just want to say hello, here's how you can reach us:
+>> We'd love to hear from you! Whether you're interested in our projects, looking to collaborate, or just want to say hello, here's how you can reach us:
 
-Email: hello@orangecube.art
-Twitter: @orangecube_art
+>> Email: hello@orangecube.art
+>> Twitter: @orangecube_art
 `
 };
 
@@ -101,9 +106,9 @@ useEffect(() => {
   };
 }, []); 
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
-      processCommand(input);
+      await processCommand(input);
       setInput('');
     } else if (e.key === 'Backspace' && input.length) {
       setInput(input.slice(0, -1));
@@ -122,12 +127,12 @@ useEffect(() => {
     ]);
   };
 
-  const processCommand = (cmd: string) => {
+  const processCommand = async (cmd: string) => {
     if (viewingFileContent && cmd.trim().toLowerCase() === 'exit') {
       setViewingFileContent(null); // Exit file view mode
       return;
     }
-
+  
     if (cmd.startsWith('vi ')) {
       const fileName = cmd.substring(3).trim(); // Extract the filename from the command
       if (fileContents[fileName as keyof typeof fileContents]) { // Check if the filename exists in fileContents
@@ -138,6 +143,21 @@ useEffect(() => {
         return;
       }
     }
+  
+    // Handle game completion and code generation
+    if (currentQuestionIndex === questions.length - 1 && cmd.trim().toLowerCase() === questions[currentQuestionIndex]?.answer?.toLowerCase()) {
+      // Generate a unique code for the user upon successful game completion
+      const uniqueCode = generateUniqueCode();
+      await kv.set(uniqueCode, JSON.stringify({ redeemed: false, discordId: '' })); // Saving to KV store
+  
+      // Reset game state
+      setCurrentQuestionIndex(-1);
+  
+      // Inform the user of their unique code
+      addCommandToHistory(cmd, <span className="text-green-500">Congratulations! You&apos;ve completed the game. Your unique code: {uniqueCode}. Use this in Discord to claim your role.</span>);
+      return;
+    }
+  
   
     switch (cmd.trim().toLowerCase()) {
       case 'help':
@@ -231,7 +251,7 @@ useEffect(() => {
     <div
       ref={terminalRef}
       tabIndex={0}
-      onKeyDown={handleKeyDown}
+      onKeyDown={handleKeyDown as React.KeyboardEventHandler<HTMLDivElement>}
       className="h-[900px] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap break-words bg-black p-4 font-space-mono text-white"
     >
       {history.map((item, index) => (
