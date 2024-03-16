@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 // Import React and useState, useEffect, useRef hooks
 import React, { useState, useEffect, useRef } from 'react';
 import { kv } from "@vercel/kv";
@@ -39,7 +40,7 @@ const fileContents = {
 
 >> Aaron - Founder & Curator
 
->> Alec - Chief of Operations
+>> Alec - Co-Founder
 
 >> David - Chief of Marketing
 
@@ -106,16 +107,7 @@ useEffect(() => {
   };
 }, []); 
 
-  const handleKeyDown = async (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter') {
-      await processCommand(input);
-      setInput('');
-    } else if (e.key === 'Backspace' && input.length) {
-      setInput(input.slice(0, -1));
-    } else if (e.key.length === 1) {
-      setInput(input + e.key);
-    }
-  };
+
 
   const addCommandToHistory = (cmd: string, output: HistoryItem) => {
     setHistory(history => [
@@ -241,33 +233,31 @@ useEffect(() => {
   };
 
   // Effect to update the terminal view when viewing a file's content
-  useEffect(() => {
-    if (viewingFileContent) {
-      setHistory(currentHistory => [...currentHistory, <pre key="file-view">{viewingFileContent}</pre>]);
-    }
-  }, [viewingFileContent]);
-
-  // Handle form submission to process commands
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent default form submission behavior
-    await processCommand(input);
+  
+    // Immediately invoked async function to use await
+    await (async () => {
+      await processCommand(input);
+      setInput(''); // Clear input after processing
+    })();
   };
 
   return (
-    <div ref={terminalRef} className="terminal">
+    <div ref={terminalRef} className="min-h-screen px-4">
       {/* Command history */}
       {history.map((item, index) => (
         <div key={index}>{item}</div>
       ))}
       {/* Input form */}
-      <form onSubmit={handleSubmit} className="flex w-full">
-        <label className="text-orange-500 mr-2">admin@orangecube:~/</label>
+      <form onSubmit={handleSubmit} className="flex w-full py-2 font-space-mono">
+        <label className="mr-2 hidden text-orange-500 md:flex">admin@orangecube:~/</label>
+        <label className="mr-2 text-orange-500 md:hidden">admin:~/</label>
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="flex-1 bg-black text-white outline-none border-none p-0 m-0"
-          style={{ fontFamily: '"Press Start 2P", monospace', fontSize: '0.75rem' }}
+          className="m-0 flex-1 border-none bg-background p-0 font-space-mono text-black outline-none dark:text-white"
           autoFocus
         />
       </form>
