@@ -9,7 +9,7 @@ export function NewsletterSection(): JSX.Element {
       aria-label="newsletter section"
       className="w-full bg-background md:py-8"
     >
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-2 md:px-4">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-8 md:px-4">
         <img src="/orange-cube-main.png" alt="Your GIF" className="mb-2 hidden md:flex" />
 
         <div className="flex flex-col items-center gap-6 text-center">

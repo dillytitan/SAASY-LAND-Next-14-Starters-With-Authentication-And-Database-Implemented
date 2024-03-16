@@ -21,9 +21,9 @@ const generateUniqueCode = () => {
 const questions: Question[] = [
   { prompt: "Enter the cube? (y/n)", answer: "y", hint: "" },
   { prompt: "Wen?", answer: "2009", hint: "What year did it start?" },
-  { prompt: "Why?", answer: "second bailout", hint: "Banks on the brink of _______________________?" },
+  { prompt: "Why?", answer: "second bailout", hint: "When banks faltered and the economy quaked, Bitcoin emerged from the _ _ _ _ _ _  _ _ _ _ _ _ _?" },
   { prompt: "What?", answer: "genesis block", hint: "In the beginning, what happened?" },
-  { prompt: "Who?", answer: "satoshi nakamoto", hint: "Anon" },
+  { prompt: "Who?", answer: "satoshi nakamoto", hint: "Who is Anon?" },
 ];
 
 // Define file contents
@@ -140,7 +140,7 @@ useEffect(() => {
     if (currentQuestionIndex === questions.length - 1 && cmd.trim().toLowerCase() === questions[currentQuestionIndex]?.answer?.toLowerCase()) {
       // Generate a unique code for the user upon successful game completion
       const uniqueCode = generateUniqueCode();
-      await kv.set(uniqueCode, JSON.stringify({ redeemed: false, discordId: '' })); // Saving to KV store
+      await kv.set(uniqueCode, JSON.stringify({ redeemed: false, discordId: '' })); 
   
       // Reset game state
       setCurrentQuestionIndex(-1);
@@ -167,11 +167,39 @@ useEffect(() => {
         addCommandToHistory(cmd, helpOutput);
         break;
       case 'clear':
-        setHistory([]); // Clear the terminal history
+        setHistory([]); 
         break;
       case 'logo':
-        // Insert your ASCII art or logic to show the logo
-        addCommandToHistory(cmd, <pre>{/* ASCII Art Here */}</pre>);
+
+        addCommandToHistory(cmd, 
+          `++++++++++++++++++++++++++++++++++++++++++++++++++++++
+          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+          ++++++++++++            ++++++            ++++++++++++
+          +++++++++++++           ++++++           +++++++++++++
+          ++++++++++++++          ++++++          ++++++++++++++
+          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+          ++++++++++++++++         ++++         ++++++++++++++++
+          ++++++++++++++++         ++++         ++++++++++++++++
+          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+          +++++++++++++++++++      ++++      +++++++++++++++++++
+          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+          ++++++++++++++++++                   +++++++++++++++++
+          ++++++++++++++++++                   +++++++++++++++++
+          ++++++++++++++++++                   +++++++++++++++++
+          ++++++++++++++++++                   +++++++++++++++++
+          ++++++++++++++++++                   +++++++++++++++++
+          ++++++++++++++++++                   +++++++++++++++++
+          ++++++++++++++++++                   +++++++++++++++++
+          ++++++++++++++++++                   +++++++++++++++++
+          ++++++++++++++++++                   +++++++++++++++++
+          ++++++++++++++++++                   +++++++++++++++++
+          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+          +++++++++++++++                        +++++++++++++++
+          ++++++++++++                              ++++++++++++
+          +++++++++                                    +++++++++
+          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+          ++++++++++++++++++++++++++++++++++++++++++++++++++++++`);
         break;
       case 'ls':
         addCommandToHistory(cmd, <pre>{"about.txt\nmission.txt\ncontact.txt"}</pre>); // List available files
