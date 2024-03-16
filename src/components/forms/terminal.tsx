@@ -66,13 +66,9 @@ Orange Cube is dedicated to showcasing the finest emerging digital art, inscribi
 
 We'd love to hear from you! Whether you're interested in our projects, looking to collaborate, or just want to say hello, here's how you can reach us:
 
-Email: contact@orangecube.com
-Twitter: @orangecube
-LinkedIn: linkedin.com/company/orangecube
-
-Our office is located at:
-123 Tech Lane
-Innovation City, Techtopia 45678`
+Email: hello@orangecube.art
+Twitter: @orangecube_art
+`
 };
 
 const Terminal: React.FC = () => {

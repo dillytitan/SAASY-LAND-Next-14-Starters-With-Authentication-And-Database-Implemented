@@ -19,7 +19,7 @@ export function TestimonialsSection(): JSX.Element {
     >
       <div className="container grid max-w-6xl gap-16">
         <div className="flex flex-col items-center gap-6 text-center">
-          <h2 className="font-tech text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <h2 className="font-space-mono text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <Balancer>
               Join a Growing <br /> Team of{" "}
               <span className="bg-gradient-to-r from-pink-600 to-purple-400 bg-clip-text text-transparent">
@@ -47,7 +47,7 @@ export function TestimonialsSection(): JSX.Element {
                     className="h-fit bg-gradient-to-r from-pink-600/10 to-purple-400/10 transition-all duration-1000 ease-out hover:opacity-70 md:hover:-translate-y-2"
                   >
                     <CardHeader>
-                      <CardTitle className="font-tech text-lg font-semibold tracking-wider">
+                      <CardTitle className="font-space-mono text-lg font-semibold tracking-wider">
                         <Balancer>{testimonial.title}</Balancer>
                       </CardTitle>
                     </CardHeader>

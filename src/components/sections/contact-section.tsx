@@ -11,7 +11,7 @@ export function ContactSection(): JSX.Element {
     >
       <div className="container grid max-w-4xl grid-cols-1 justify-center gap-8 md:gap-16">
         <div className="flex flex-col items-center gap-6 text-center">
-          <h2 className="font-tech text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <h2 className="font-space-mono text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <Balancer>
               Let&apos;s{" "}
               <span className="bg-gradient-to-r from-orange-600 to-yellow-400 bg-clip-text text-transparent">
