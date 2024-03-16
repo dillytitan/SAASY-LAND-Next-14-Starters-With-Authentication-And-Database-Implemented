@@ -247,22 +247,30 @@ useEffect(() => {
     }
   }, [viewingFileContent]);
 
+  // Handle form submission to process commands
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Prevent default form submission behavior
+    await processCommand(input);
+  };
+
   return (
-    <div
-      ref={terminalRef}
-      tabIndex={0}
-      onKeyDown={handleKeyDown as React.KeyboardEventHandler<HTMLDivElement>}
-      className="md:h-[900px] h-[300px] text-xs md:text-md w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap break-words bg-black p-4 font-space-mono text-white"
-    >
+    <div ref={terminalRef} className="terminal">
+      {/* Command history */}
       {history.map((item, index) => (
         <div key={index}>{item}</div>
       ))}
-      <div className="flex items-center">
-        <span className="text-orange-500">admin@orangecube:</span>
-        <span> ~/ </span>
-        <span className="text-white">{input}</span>
-        <div className="inline-block h-5 w-2 animate-pulse bg-white"></div>
-      </div>
+      {/* Input form */}
+      <form onSubmit={handleSubmit} className="flex w-full">
+        <label className="text-orange-500 mr-2">admin@orangecube:~/</label>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          className="flex-1 bg-black text-white outline-none border-none p-0 m-0"
+          style={{ fontFamily: '"Press Start 2P", monospace', fontSize: '0.75rem' }}
+          autoFocus
+        />
+      </form>
     </div>
   );
 };
