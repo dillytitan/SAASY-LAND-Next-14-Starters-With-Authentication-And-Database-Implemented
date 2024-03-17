@@ -6,7 +6,7 @@ import type { Metadata, Viewport } from "next"
 import { env } from "@/env.mjs"
 import { Analytics } from "@vercel/analytics/react"
 
-import { fontSpaceMono } from "@/config/fonts"
+import { fontSpaceMono, fontMichroma } from "@/config/fonts"
 import { siteConfig } from "@/config/site"
 import { SmoothScrollProvider } from "@/providers/smooth-scroll-provider"
 import { ThemeProvider } from "@/providers/theme-provider"
@@ -100,8 +100,9 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
       </Head>
       <body
         className={cn(
-          "w-full bg-background bg-gradient-to-r from-background to-orange-400/20 font-space-mono antialiased",
+          "w-full bg-background bg-gradient-to-r from-background to-orange-500 font-space-mono antialiased",
           fontSpaceMono.variable,
+          fontMichroma.variable
         )}
       >
         <SmoothScrollProvider>

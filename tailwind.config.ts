@@ -17,6 +17,7 @@ module.exports = {
       // Replace or update fontFamily configuration
       fontFamily: {
         'space-mono': 'var(--font-space-mono)',
+        'michroma': 'var(--font-michroma)',
       },
       colors: {
         border: "hsl(var(--border))",

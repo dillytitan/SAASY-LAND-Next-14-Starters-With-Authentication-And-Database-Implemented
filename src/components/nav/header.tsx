@@ -32,7 +32,7 @@ export async function Header(): Promise<JSX.Element> {
           className="flex items-center justify-center gap-2 text-lg font-bold tracking-wide transition-all duration-300 ease-in-out"
         >
           <Image src="/orangecube-logo.png" width={30} height={30} alt="logo" />
-          <span className="hidden md:flex">{siteConfig.name}</span>
+          <span className="hidden font-michroma md:flex">{siteConfig.name}</span>
         </Link>
         {/* <Navigation navItems={siteConfig.navItems} /> */}
         <div className="flex items-center justify-center gap-x-2">

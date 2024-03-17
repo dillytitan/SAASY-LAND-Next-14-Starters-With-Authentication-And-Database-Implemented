@@ -6,7 +6,7 @@ export function NewsletterSection(): JSX.Element {
     <section
       id="newsletter-section"
       aria-label="newsletter section"
-      className="w-full bg-background md:py-8"
+      className="w-full bg-background md:py-10"
     >
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-8 md:px-4">
         <img src="/orange-cube-main.png" alt="Your GIF" className="mb-2 hidden md:flex" />
@@ -14,7 +14,7 @@ export function NewsletterSection(): JSX.Element {
         <div className="flex flex-col items-center gap-6 text-center">
           <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <Balancer>
-              <span className=" hidden px-4 md:flex">
+              <span className=" hidden px-4 font-michroma md:flex">
                 ORANGE CUBE
               </span>
             </Balancer>

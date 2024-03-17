@@ -15,7 +15,7 @@ const JoinDiscordButton: React.FC<JoinDiscordButtonProps> = ({ inviteLink }) => 
   return (
     <Button
       onClick={handleJoinDiscord}
-      className="mx-0 flex items-center justify-center rounded bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
+      className="mx-0 flex items-center justify-center rounded bg-transparent border border-black px-4 py-2 text-black dark:text-white dark:border dark:border-white"
       
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 508.67 96.36" className="mr-2 h-5 w-20" fill="currentColor" aria-hidden="true">
