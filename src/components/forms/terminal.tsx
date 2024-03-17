@@ -1,7 +1,8 @@
+
 /* eslint-disable @typescript-eslint/no-misused-promises */
 // Import React and useState, useEffect, useRef hooks
 import React, { useState, useEffect, useRef } from 'react';
-import { kv } from "@vercel/kv";
+
 
 // Define type for questions and history items
 type Question = {
@@ -10,13 +11,12 @@ type Question = {
   hint: string;
 };
 
+interface GenerateCodeResponse {
+  code: string; // Adjust according to the actual expected structure
+}
+
+
 type HistoryItem = React.ReactNode;
-
-const generateUniqueCode = () => {
-  // Example: Generate a random code. Adjust the method according to your requirements
-  return Math.random().toString(36).substr(2, 9);
-};
-
 
 const questions: Question[] = [
   { prompt: "Enter the cube? (y/n)", answer: "y", hint: "" },
@@ -87,23 +87,21 @@ const Terminal: React.FC = () => {
 const [requestingHint, setRequestingHint] = useState<boolean>(false);
 
 useEffect(() => {
-  // Reference to the terminal container element
   const terminalElement = terminalRef.current;
 
-  // Function to handle manual scroll
-  const handleWheel = (event: WheelEvent) => {
+  // Function to handle scroll
+  const handleScroll = (event: WheelEvent) => {
     if (terminalElement) {
-      event.preventDefault(); // Prevent the page scroll
-      terminalElement.scrollTop += event.deltaY; // Manually adjust the terminal's scroll position
+      event.preventDefault(); 
+      terminalElement.scrollTop += event.deltaY; 
     }
   };
 
-  // Adding the event listener when the component mounts
-  terminalElement?.addEventListener('wheel', handleWheel);
+  terminalElement?.addEventListener('wheel', handleScroll);
 
-  // Cleanup function to remove the event listener when the component unmounts
+
   return () => {
-    terminalElement?.removeEventListener('wheel', handleWheel);
+    terminalElement?.removeEventListener('wheel', handleScroll);
   };
 }, []); 
 
@@ -119,33 +117,30 @@ useEffect(() => {
     ]);
   };
 
-  const processCommand = async (cmd: string) => {
+  const processCommand = (cmd: string) => {
     if (viewingFileContent && cmd.trim().toLowerCase() === 'exit') {
       setViewingFileContent(null); // Exit file view mode
       return;
     }
   
     if (cmd.startsWith('vi ')) {
-      const fileName = cmd.substring(3).trim(); // Extract the filename from the command
-      if (fileContents[fileName as keyof typeof fileContents]) { // Check if the filename exists in fileContents
-        addCommandToHistory(cmd, <pre>{fileContents[fileName as keyof typeof fileContents]}</pre>); // Display the content
+      const fileName = cmd.substring(3).trim(); 
+      if (fileContents[fileName as keyof typeof fileContents]) { 
+        addCommandToHistory(cmd, <pre>{fileContents[fileName as keyof typeof fileContents]}</pre>); 
         return;
       } else {
-        addCommandToHistory(cmd, <span>File not found.</span>); // File not found message
+        addCommandToHistory(cmd, <span>File not found.</span>); 
         return;
       }
     }
   
     // Handle game completion and code generation
+    const uniqueCode = '12345'; // Replace 'YOUR_UNIQUE_CODE' with the actual unique code
+
     if (currentQuestionIndex === questions.length - 1 && cmd.trim().toLowerCase() === questions[currentQuestionIndex]?.answer?.toLowerCase()) {
-      // Generate a unique code for the user upon successful game completion
-      const uniqueCode = generateUniqueCode();
-      await kv.set(uniqueCode, JSON.stringify({ redeemed: false, discordId: '' })); 
-  
-      // Reset game state
+
       setCurrentQuestionIndex(-1);
-  
-      // Inform the user of their unique code
+
       addCommandToHistory(cmd, <span className="text-green-500">Congratulations! You&apos;ve completed the game. Your unique code: {uniqueCode}. Use this in Discord to claim your role.</span>);
       return;
     }
@@ -202,19 +197,19 @@ useEffect(() => {
           ++++++++++++++++++++++++++++++++++++++++++++++++++++++`);
         break;
       case 'ls':
-        addCommandToHistory(cmd, <pre>{"about.txt\nmission.txt\ncontact.txt"}</pre>); // List available files
+        addCommandToHistory(cmd, <pre>{"about.txt\nmission.txt\ncontact.txt"}</pre>); 
         break;
       case 'join':
-        window.open('https://discord.gg/4RvS8ZwRcj', '_blank'); // Open Discord link
+        window.open('https://discord.gg/4RvS8ZwRcj', '_blank'); 
         addCommandToHistory(cmd, <span>Opening Discord...</span>);
         break;
       case 'cube':
         if (currentQuestionIndex === -1) {
           // Start the game by setting the current question index to 0
           setCurrentQuestionIndex(0);
-          setViewingFileContent(null); // Ensure file view is not active
-          const firstQuestionPrompt = questions[0]?.prompt; // Add null check
-          addCommandToHistory(cmd, <span>{firstQuestionPrompt}</span>); // Show the first question with null check
+          setViewingFileContent(null); 
+          const firstQuestionPrompt = questions[0]?.prompt; 
+          addCommandToHistory(cmd, <span>{firstQuestionPrompt}</span>); 
         } else {
           // Game already started
           addCommandToHistory(cmd, <span>You are already inside the cube. Answer the question or type &apos;hint&apos; for help.</span>);
@@ -223,7 +218,7 @@ useEffect(() => {
       case 'hint':
         if (currentQuestionIndex >= 0 && currentQuestionIndex < questions.length) {
           // Provide a hint for the current question
-          const hint = questions[currentQuestionIndex]?.hint; // Add null check
+          const hint = questions[currentQuestionIndex]?.hint; 
           addCommandToHistory(cmd, <span>{hint}</span>);
         }
         break;
@@ -260,16 +255,44 @@ useEffect(() => {
     }
   };
 
-  // Effect to update the terminal view when viewing a file's content
+ 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Prevent default form submission behavior
-  
-    // Immediately invoked async function to use await
-    await (async () => {
-      await processCommand(input);
-      setInput(''); // Clear input after processing
-    })();
-  };
+    event.preventDefault();
+    
+    // Only proceed with API call if it's the game completion scenario
+    if (currentQuestionIndex === questions.length - 1 && input.trim().toLowerCase() === questions[currentQuestionIndex]?.answer?.toLowerCase()) {
+        try {
+            const response = await fetch('/api/kv/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // Send any required data, if necessary
+                body: JSON.stringify({}),
+            });
+
+            // Ensure response structure matches our expectations
+            if (!response.ok) {
+                throw new Error('Failed to generate code');
+            }
+
+            // Using type assertion for TypeScript's benefit
+            const { code } = await response.json() as GenerateCodeResponse;
+            addCommandToHistory('complete', <span className="text-green-500">Your unique code: {code}. Use this in Discord to claim your role.</span>);
+
+            // Game completion logic here
+            setCurrentQuestionIndex(-1);
+        } catch (error) {
+            console.error('Error during code generation:', error);
+            addCommandToHistory('error', <span>There was a problem generating your unique code. Please try again.</span>);
+        }
+    } else {
+      // For all other commands, process as usual
+      processCommand(input);
+    }
+
+    setInput(''); // Clear the input field
+};
 
   return (
     <div ref={terminalRef} className="min-h-screen px-4">
