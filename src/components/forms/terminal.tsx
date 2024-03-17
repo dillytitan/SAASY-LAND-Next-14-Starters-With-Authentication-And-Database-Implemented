@@ -299,7 +299,7 @@ useEffect(() => {
         <div key={index}>{item}</div>
       ))}
       {/* Input form */}
-      <form onSubmit={handleSubmit} className="flex w-full py-2 font-space-mono">
+      <form onSubmit={handleSubmit} className="flex w-full font-space-mono">
         <label className="mr-2 hidden text-orange-500 md:flex">admin@orangecube:~/</label>
         <label className="mr-2 text-orange-500 md:hidden">admin:~/</label>
         <input
