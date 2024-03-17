@@ -19,6 +19,7 @@ import { siteConfig } from "@/config/site"
 // import { Navigation } from "@/components/nav/navigation"
 // import { NavigationMobile } from "@/components/nav/navigation-mobile"
 import { ThemeToggle } from "@/components/theme-toggle"
+import JoinDiscordButton from "../ui/join-discord"
 
 export async function Header(): Promise<JSX.Element> {
   const session = await auth()
@@ -34,8 +35,11 @@ export async function Header(): Promise<JSX.Element> {
           <span className="hidden md:flex">{siteConfig.name}</span>
         </Link>
         {/* <Navigation navItems={siteConfig.navItems} /> */}
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center gap-x-2">
+     
+        <JoinDiscordButton inviteLink="https://discord.gg/4RvS8ZwRcj" />
           <ThemeToggle />
+          
           {/* <NavigationMobile navItems={siteConfig.navItems} /> */}
 
           {/* <nav className="space-x-1">

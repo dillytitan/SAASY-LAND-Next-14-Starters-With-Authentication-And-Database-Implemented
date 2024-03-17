@@ -270,7 +270,6 @@ useEffect(() => {
             body: JSON.stringify({}), // You can send additional data here if needed
         });
 
-            // Ensure response structure matches our expectations
             if (!response.ok) {
                 throw new Error('Failed to generate code');
             }

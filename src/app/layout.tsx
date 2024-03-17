@@ -72,7 +72,7 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
   return (
-    <html lang="en" className="overflow-x-hidden overflow-y-scroll">
+    <html lang="en" className="overflow-y-scroll overscroll-contain">
       <Head>
         {/* Basic Meta Tags */}
         <title>Orangecube</title>
@@ -100,7 +100,7 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
       </Head>
       <body
         className={cn(
-          "w-full bg-background bg-gradient-to-r from-background to-pink-400/10 font-space-mono antialiased",
+          "w-full bg-background bg-gradient-to-r from-background to-orange-400/20 font-space-mono antialiased",
           fontSpaceMono.variable,
         )}
       >

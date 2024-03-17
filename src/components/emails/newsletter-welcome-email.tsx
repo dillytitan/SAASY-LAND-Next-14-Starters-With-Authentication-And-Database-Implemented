@@ -27,7 +27,7 @@ export function NewsletterWelcomeEmail(): JSX.Element {
           <Container className="mx-auto my-[40px] max-w-2xl rounded p-4">
             <Section className="mt-4">
               <Heading className="text-center text-2xl font-semibold text-zinc-950">
-                Orange Cube
+                OrangeCube
               </Heading>
               <Hr className="my-4" />
               <Heading className="text-center text-3xl font-semibold text-zinc-800">
