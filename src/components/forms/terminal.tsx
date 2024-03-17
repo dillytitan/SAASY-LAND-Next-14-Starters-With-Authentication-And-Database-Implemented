@@ -12,7 +12,7 @@ type Question = {
 };
 
 interface GenerateCodeResponse {
-  code: string; // Adjust according to the actual expected structure
+  uniqueCode: string; // Adjust according to the actual expected structure
 }
 
 
@@ -262,14 +262,13 @@ useEffect(() => {
     // Only proceed with API call if it's the game completion scenario
     if (currentQuestionIndex === questions.length - 1 && input.trim().toLowerCase() === questions[currentQuestionIndex]?.answer?.toLowerCase()) {
         try {
-            const response = await fetch('/api/kv/generate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                // Send any required data, if necessary
-                body: JSON.stringify({}),
-            });
+          const response = await fetch('/api/kv/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}), // You can send additional data here if needed
+        });
 
             // Ensure response structure matches our expectations
             if (!response.ok) {
@@ -277,8 +276,8 @@ useEffect(() => {
             }
 
             // Using type assertion for TypeScript's benefit
-            const { code } = await response.json() as GenerateCodeResponse;
-            addCommandToHistory('complete', <span className="text-green-500">Your unique code: {code}. Use this in Discord to claim your role.</span>);
+            const { uniqueCode } = await response.json() as GenerateCodeResponse;
+            addCommandToHistory('complete', <span className="text-green-500">Your unique code: {uniqueCode}. Use this in Discord to claim your role.</span>);
 
             // Game completion logic here
             setCurrentQuestionIndex(-1);

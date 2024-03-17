@@ -18,7 +18,7 @@ interface ApiResponse {
 
 async function subscribeToNewsletter(email: string): Promise<ApiResponse> {
   // Call Klaviyo API method to subscribe to newsletter
-  const response = await fetch("/api/klaviyo-subscribe", {
+  const response = await fetch("/api/klaviyo/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
