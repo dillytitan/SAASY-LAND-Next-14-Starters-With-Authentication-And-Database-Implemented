@@ -1,6 +1,6 @@
 'use client'
 import Balancer from "react-wrap-balancer"
-import Terminal from "../forms/terminal"
+// import Terminal from "../forms/terminal"
 export function NewsletterSection(): JSX.Element {
   return (
     <section
@@ -32,7 +32,7 @@ export function NewsletterSection(): JSX.Element {
           {/* <NewsletterSignUpForm /> */}
         </div>
       
-  <Terminal />
+  {/* <Terminal /> */}
 
       </div>
     </section>
