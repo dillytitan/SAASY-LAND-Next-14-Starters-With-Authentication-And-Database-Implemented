@@ -66,11 +66,18 @@ const fileContents = {
 
 "mission.txt": `“To preserve artifacts, and define contemporary”
 
->> Orange Cube is dedicated to showcasing the finest emerging digital art, inscribing it onto Bitcoin, and providing curated collections that are accessible to all collectors. Our mission goes beyond profitability, aiming to spark innovation and foster a vibrant community around on-chain art inscriptions.`,
+>> Orange Cube is dedicated to showcasing the finest
+   emerging digital art, inscribing it onto Bitcoin, 
+   and providing curated collections that are accessible 
+   to all collectors. Our mission goes beyond profitability, 
+   aiming to spark innovation and foster a vibrant community
+   around on-chain art inscriptions.`,
 
   "contact.txt": `Get in Touch with Orangecube
 
->> We'd love to hear from you! Whether you're interested in our projects, looking to collaborate, or just want to say hello, here's how you can reach us:
+>> We'd love to hear from you! Whether you're interested 
+   in our projects, looking to collaborate, or just want 
+   to say hello, here's how you can reach us:
 
 >> Email: hello@orangecube.art
 >> Twitter: @orangecube_art
@@ -126,7 +133,7 @@ useEffect(() => {
     if (cmd.startsWith('vi ')) {
       const fileName = cmd.substring(3).trim(); 
       if (fileContents[fileName as keyof typeof fileContents]) { 
-        addCommandToHistory(cmd, <pre>{fileContents[fileName as keyof typeof fileContents]}</pre>); 
+        addCommandToHistory(cmd, <pre className="whitespace-pre-wrap">{fileContents[fileName as keyof typeof fileContents]}</pre>);
         return;
       } else {
         addCommandToHistory(cmd, <span>File not found.</span>); 
@@ -292,26 +299,27 @@ useEffect(() => {
     setInput(''); // Clear the input field
 };
 
-  return (
-    <div ref={terminalRef} className="min-h-screen px-4">
-      {/* Command history */}
-      {history.map((item, index) => (
-        <div key={index}>{item}</div>
-      ))}
-      {/* Input form */}
-      <form onSubmit={handleSubmit} className="flex w-full font-space-mono">
-        <label className="mr-2 hidden text-orange-500 md:flex">admin@orangecube:~/</label>
-        <label className="mr-2 text-orange-500 md:hidden">admin:~/</label>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="m-0 flex-1 border-none bg-background p-0 font-space-mono text-black outline-none dark:text-white"
-          autoFocus
-        />
-      </form>
-    </div>
-  );
+return (
+  <div ref={terminalRef} className="min-h-screen w-full px-4 md:px-8 overflow-y-auto">
+
+    {/* Command history */}
+    {history.map((item, index) => (
+      <div key={index} >{item}</div>
+    ))}
+    {/* Input form */}
+    <form onSubmit={handleSubmit} className="flex w-full font-space-mono">
+      <label className="mr-2 hidden text-orange-500 md:flex">admin@orangecube:~/</label>
+      <label className="mr-2 text-orange-500 md:hidden">admin:~/</label>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        className="m-0 flex-1 border-none bg-background p-0 font-space-mono text-black outline-none dark:text-white text-base md:text-sm lg:text-base" // Adjust font sizes here
+        autoFocus
+      />
+    </form>
+  </div>
+);
 };
 
 export default Terminal;

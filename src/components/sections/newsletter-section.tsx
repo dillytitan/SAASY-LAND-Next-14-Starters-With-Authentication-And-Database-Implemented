@@ -31,9 +31,9 @@ export function NewsletterSection(): JSX.Element {
         
           {/* <NewsletterSignUpForm /> */}
         </div>
-        <div className="w-full">
-        <Terminal />
-        </div>
+      
+  <Terminal />
+
       </div>
     </section>
   )
