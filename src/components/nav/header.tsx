@@ -29,13 +29,13 @@ export async function Header(): Promise<JSX.Element> {
       <div className="container flex items-center justify-between p-4">
         <Link
           href="/"
-          className="flex items-center justify-center gap-2 text-lg font-bold tracking-wide transition-all duration-300 ease-in-out"
+          className="flex items-center justify-center gap-8 text-lg font-bold tracking-wide transition-all duration-300 ease-in-out"
         >
           <Image src="/orangecube-logo.png" width={30} height={30} alt="logo" />
           <span className="hidden font-michroma md:flex">{siteConfig.name}</span>
         </Link>
         {/* <Navigation navItems={siteConfig.navItems} /> */}
-        <div className="flex items-center justify-center gap-x-2">
+        <div className="flex items-center justify-center gap-x-4">
      
         <JoinDiscordButton inviteLink="https://discord.gg/4RvS8ZwRcj" />
           <ThemeToggle />
