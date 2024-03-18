@@ -304,7 +304,7 @@ return (
 
     {/* Command history */}
     {history.map((item, index) => (
-      <div key={index} >{item}</div>
+      <div key={index} className="pt-4" >{item}</div>
     ))}
     {/* Input form */}
     <form onSubmit={handleSubmit} className="flex w-full font-space-mono">
