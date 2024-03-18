@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 // Import React and useState, useEffect, useRef hooks
 import React, { useState, useEffect, useRef } from 'react';
+import type { FC } from 'react';
 
 
 // Define type for questions and history items
@@ -12,8 +13,13 @@ type Question = {
 };
 
 interface GenerateCodeResponse {
-  uniqueCode: string; // Adjust according to the actual expected structure
+  uniqueCode: string;
 }
+
+interface FileContents {
+  [key: string]: string;
+}
+
 
 
 type HistoryItem = React.ReactNode;
@@ -27,7 +33,7 @@ const questions: Question[] = [
 ];
 
 // Define file contents
-const fileContents = {
+const fileContents: FileContents = {
   "about.txt": `exclusive digital arthouse
 
 >> offering curated releases of the best digital artists on BTC
@@ -84,37 +90,28 @@ const fileContents = {
 `
 };
 
-const Terminal: React.FC = () => {
+const Terminal: FC = () => {
   const [input, setInput] = useState<string>('');
-  const inputRef = useRef<HTMLInputElement>(null);
   const [history, setHistory] = useState<React.ReactNode[]>(['Type \'help\' to get started']);
   const [viewingFileContent, setViewingFileContent] = useState<string | null>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(-1);
-const [requestingHint, setRequestingHint] = useState<boolean>(false);
 
-useEffect(() => {
-  const terminalElement = terminalRef.current;
+  useEffect(() => {
+    const terminalElement = terminalRef.current;
+    const handleScroll = (event: WheelEvent) => {
+      if (terminalElement) {
+        event.preventDefault(); 
+        terminalElement.scrollTop += event.deltaY; 
+      }
+    };
 
-  // Function to handle scroll
-  const handleScroll = (event: WheelEvent) => {
-    if (terminalElement) {
-      event.preventDefault(); 
-      terminalElement.scrollTop += event.deltaY; 
-    }
-  };
+    terminalElement?.addEventListener('wheel', handleScroll);
 
-  terminalElement?.addEventListener('wheel', handleScroll);
-
-  // Secondary message for when the terminal is cleared
-  if (history.length === 0) {
-    setHistory(['Type \'help\' to get started']); // Display default message
-  }
-
-  return () => {
-    terminalElement?.removeEventListener('wheel', handleScroll);
-  };
-}, [history]);  // Include 'history' in the dependency array
+    return () => {
+      terminalElement?.removeEventListener('wheel', handleScroll);
+    };
+  }, []);
 
 
 
@@ -129,7 +126,35 @@ useEffect(() => {
     ]);
   };
 
-  const processCommand = (cmd: string) => {
+  const handleAnswersAndCommands = (cmd: string) => {
+    if (currentQuestionIndex >= 0 && currentQuestionIndex < questions.length) {
+      const currentQuestion = questions[currentQuestionIndex];
+      if (currentQuestion && cmd.trim().toLowerCase() === currentQuestion.answer.toLowerCase()) {
+        // Correct answer
+        const nextIndex = currentQuestionIndex + 1;
+        if (nextIndex < questions.length) {
+          setCurrentQuestionIndex(nextIndex); // Proceed to next question
+          addCommandToHistory(cmd, <span className="text-green-500">Correct!</span>);
+          addCommandToHistory("", <span>{questions[nextIndex]?.prompt}</span>); // Show next question with null check
+        } else {
+          // All questions answered correctly
+          setCurrentQuestionIndex(-1); // Reset game index
+          addCommandToHistory(cmd, <span className="text-green-500">Correct! You&apos;ve completed the challenge.</span>);
+          // Show completion message
+          addCommandToHistory("", <pre>{`Whois Orangecube\n${fileContents["about.txt"]}\n${fileContents["mission.txt"]}`}</pre>);
+        }
+      } else if (!viewingFileContent) {
+        // Incorrect answer and not viewing a file
+        addCommandToHistory(cmd, <span className="text-red-500">Incorrect. Try again or type &lsquo;hint&rsquo; for a hint.</span>);
+      }
+    } else if (!viewingFileContent) {
+      // Command not recognized and not part of the game
+      addCommandToHistory(cmd, <span className="text-red-500">Command not found: {cmd}</span>);
+    }
+  };
+
+
+  const processCommand = async (cmd: string) => {
     if (viewingFileContent && cmd.trim().toLowerCase() === 'exit') {
       setViewingFileContent(null); // Exit file view mode
       return;
@@ -145,17 +170,32 @@ useEffect(() => {
         return;
       }
     }
+
+    if (currentQuestionIndex === questions.length - 1 && input.trim().toLowerCase() === questions[currentQuestionIndex]?.answer?.toLowerCase()) {
+      try {
+        const response = await fetch('/api/kv', { // Updated endpoint
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({}) // Send additional data here if needed
+      });
   
-    // Handle game completion and code generation
-    const uniqueCode = '12345'; // Replace 'YOUR_UNIQUE_CODE' with the actual unique code
+          if (!response.ok) {
+            throw new Error('Failed to generate code');
+          }
 
-    if (currentQuestionIndex === questions.length - 1 && cmd.trim().toLowerCase() === questions[currentQuestionIndex]?.answer?.toLowerCase()) {
+          const { uniqueCode } = await response.json() as GenerateCodeResponse;
+          addCommandToHistory(input, <span className="text-green-500">Your unique code: {uniqueCode}. Use this in Discord to claim your role.</span>);
+          
 
-      setCurrentQuestionIndex(-1);
-
-      addCommandToHistory(cmd, <span className="text-green-500">Congratulations! You&apos;ve completed the game. Your unique code: {uniqueCode}. Use this in Discord to claim your role.</span>);
-      return;
-    }
+          // Game completion logic here
+          setCurrentQuestionIndex(-1);
+      } catch (error) {
+          console.error('Error during code generation:', error);
+          addCommandToHistory('error', <span>There was a problem generating your unique code. Please try again.</span>);
+      }
+  } else {
   
   
     switch (cmd.trim().toLowerCase()) {
@@ -176,38 +216,38 @@ useEffect(() => {
       case 'clear':
         setHistory([]); 
         break;
-      case 'logo':
+      // case 'logo':
 
-        addCommandToHistory(cmd, 
-          `++++++++++++++++++++++++++++++++++++++++++++++++++++++
-          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-          ++++++++++++            ++++++            ++++++++++++
-          +++++++++++++           ++++++           +++++++++++++
-          ++++++++++++++          ++++++          ++++++++++++++
-          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-          ++++++++++++++++         ++++         ++++++++++++++++
-          ++++++++++++++++         ++++         ++++++++++++++++
-          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-          +++++++++++++++++++      ++++      +++++++++++++++++++
-          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-          ++++++++++++++++++                   +++++++++++++++++
-          ++++++++++++++++++                   +++++++++++++++++
-          ++++++++++++++++++                   +++++++++++++++++
-          ++++++++++++++++++                   +++++++++++++++++
-          ++++++++++++++++++                   +++++++++++++++++
-          ++++++++++++++++++                   +++++++++++++++++
-          ++++++++++++++++++                   +++++++++++++++++
-          ++++++++++++++++++                   +++++++++++++++++
-          ++++++++++++++++++                   +++++++++++++++++
-          ++++++++++++++++++                   +++++++++++++++++
-          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-          +++++++++++++++                        +++++++++++++++
-          ++++++++++++                              ++++++++++++
-          +++++++++                                    +++++++++
-          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-          ++++++++++++++++++++++++++++++++++++++++++++++++++++++`);
-        break;
+      //   addCommandToHistory(cmd, 
+      //     `++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      //     ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      //     ++++++++++++            ++++++            ++++++++++++
+      //     +++++++++++++           ++++++           +++++++++++++
+      //     ++++++++++++++          ++++++          ++++++++++++++
+      //     ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      //     ++++++++++++++++         ++++         ++++++++++++++++
+      //     ++++++++++++++++         ++++         ++++++++++++++++
+      //     ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      //     +++++++++++++++++++      ++++      +++++++++++++++++++
+      //     ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      //     ++++++++++++++++++                   +++++++++++++++++
+      //     ++++++++++++++++++                   +++++++++++++++++
+      //     ++++++++++++++++++                   +++++++++++++++++
+      //     ++++++++++++++++++                   +++++++++++++++++
+      //     ++++++++++++++++++                   +++++++++++++++++
+      //     ++++++++++++++++++                   +++++++++++++++++
+      //     ++++++++++++++++++                   +++++++++++++++++
+      //     ++++++++++++++++++                   +++++++++++++++++
+      //     ++++++++++++++++++                   +++++++++++++++++
+      //     ++++++++++++++++++                   +++++++++++++++++
+      //     ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      //     +++++++++++++++                        +++++++++++++++
+      //     ++++++++++++                              ++++++++++++
+      //     +++++++++                                    +++++++++
+      //     ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      //     ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      //     ++++++++++++++++++++++++++++++++++++++++++++++++++++++`);
+      //   break;
       case 'ls':
         addCommandToHistory(cmd, <pre>{"about.txt\nmission.txt\ncontact.txt"}</pre>); 
         break;
@@ -240,72 +280,46 @@ useEffect(() => {
     }
   };
   
-  const handleAnswersAndCommands = (cmd: string) => {
-    if (currentQuestionIndex >= 0 && currentQuestionIndex < questions.length) {
-      const currentQuestion = questions[currentQuestionIndex];
-      if (currentQuestion && cmd.trim().toLowerCase() === currentQuestion.answer.toLowerCase()) {
-        // Correct answer
-        const nextIndex = currentQuestionIndex + 1;
-        if (nextIndex < questions.length) {
-          setCurrentQuestionIndex(nextIndex); // Proceed to next question
-          addCommandToHistory(cmd, <span className="text-green-500">Correct!</span>);
-          addCommandToHistory("", <span>{questions[nextIndex]?.prompt}</span>); // Show next question with null check
-        } else {
-          // All questions answered correctly
-          setCurrentQuestionIndex(-1); // Reset game index
-          addCommandToHistory(cmd, <span className="text-green-500">Correct! You&apos;ve completed the challenge.</span>);
-          // Show completion message
-          addCommandToHistory("", <pre>{`Whois Orangecube\n${fileContents["about.txt"]}\n${fileContents["mission.txt"]}`}</pre>);
-        }
-      } else if (!viewingFileContent) {
-        // Incorrect answer and not viewing a file
-        addCommandToHistory(cmd, <span className="text-red-500">Incorrect. Try again or type &lsquo;hint&rsquo; for a hint.</span>);
-      }
-    } else if (!viewingFileContent) {
-      // Command not recognized and not part of the game
-      addCommandToHistory(cmd, <span className="text-red-500">Command not found: {cmd}</span>);
-    }
-  };
-
+  return null;
+};
  
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
-    // Only proceed with API call if it's the game completion scenario
+    // Game completion scenario
     if (currentQuestionIndex === questions.length - 1 && input.trim().toLowerCase() === questions[currentQuestionIndex]?.answer?.toLowerCase()) {
         try {
-          const response = await fetch('/api/kv/', {
+          const response = await fetch('/api/kv', { // Note the endpoint change
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({}), // You can send additional data here if needed
-        });
+            body: JSON.stringify({}) // You can adjust if you decide to send additional data
+        })
 
             if (!response.ok) {
                 throw new Error('Failed to generate code');
             }
 
-            // Using type assertion for TypeScript's benefit
             const { uniqueCode } = await response.json() as GenerateCodeResponse;
-            addCommandToHistory('complete', <span className="text-green-500">Your unique code: {uniqueCode}. Use this in Discord to claim your role.</span>);
+addCommandToHistory(input, <span className="text-green-500">Your unique code: {uniqueCode}. Use this in Discord to claim your role.</span>);
 
-            // Game completion logic here
-            setCurrentQuestionIndex(-1);
+            setCurrentQuestionIndex(-1); // Reset the game state
         } catch (error) {
             console.error('Error during code generation:', error);
-            addCommandToHistory('error', <span>There was a problem generating your unique code. Please try again.</span>);
+            addCommandToHistory(input, <span>There was a problem generating your unique code. Please try again.</span>);
         }
     } else {
-      // For all other commands, process as usual
-      processCommand(input);
+      
+      await processCommand(input);
     }
 
     setInput(''); // Clear the input field
-};
+  };
+
 
 return (
-  <div ref={terminalRef} className="min-h-screen w-full px-4 md:px-8 overflow-y-auto">
+  <div ref={terminalRef} className="min-h-screen w-full overflow-y-auto px-4 md:px-8">
 
     {/* Command history */}
     {history.map((item, index) => (
@@ -319,7 +333,7 @@ return (
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="m-0 flex-1 border-none bg-background p-0 font-space-mono text-black outline-none dark:text-white text-base md:text-sm lg:text-base" // Adjust font sizes here
+        className="m-0 flex-1 border-none bg-background p-0 font-space-mono text-base text-black outline-none dark:text-white md:text-sm lg:text-base" // Adjust font sizes here
         autoFocus
       />
     </form>

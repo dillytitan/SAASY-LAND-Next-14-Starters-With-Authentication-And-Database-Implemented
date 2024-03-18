@@ -3,30 +3,24 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { kv } from '@vercel/kv';
 
-// Helper function to generate a unique code
 const generateUniqueCode = () => {
-    return Math.random().toString(36).substring(2, 10); // Adjust as needed
+    return Math.random().toString(36).substring(2, 10);
 };
 
-// Named export for the POST method
 export async function POST(req: NextRequest) {
-  // Log the request method for debugging purposes
   console.log('Request received:', req.method);
 
-  // Generate the unique code
   const uniqueCode = generateUniqueCode();
   console.log('Generated unique code:', uniqueCode);
 
-  // Prepare the data to be stored
   const value = JSON.stringify({ redeemed: false, discordId: '' });
 
   try {
-    // Store the code and its associated data in the KV database
     await kv.set(uniqueCode, value);
     console.log(`Stored code ${uniqueCode} successfully.`);
 
-    // Respond with the generated code
-    return new NextResponse(JSON.stringify({ success: true, code: uniqueCode }), {
+    // Ensure the response object uses 'uniqueCode' to match the frontend expectation
+    return new NextResponse(JSON.stringify({ success: true, uniqueCode }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
