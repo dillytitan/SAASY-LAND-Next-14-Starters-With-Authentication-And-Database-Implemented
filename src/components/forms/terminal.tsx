@@ -106,11 +106,16 @@ useEffect(() => {
 
   terminalElement?.addEventListener('wheel', handleScroll);
 
+  // Secondary message for when the terminal is cleared
+  if (history.length === 0) {
+    setHistory(['Type \'help\' to get started']); // Display default message
+  }
 
   return () => {
     terminalElement?.removeEventListener('wheel', handleScroll);
   };
-}, []); 
+}, [history]);  // Include 'history' in the dependency array
+
 
 
 
@@ -304,7 +309,7 @@ return (
 
     {/* Command history */}
     {history.map((item, index) => (
-      <div key={index} className="pt-4" >{item}</div>
+      <div key={index} >{item}</div>
     ))}
     {/* Input form */}
     <form onSubmit={handleSubmit} className="flex w-full font-space-mono">
