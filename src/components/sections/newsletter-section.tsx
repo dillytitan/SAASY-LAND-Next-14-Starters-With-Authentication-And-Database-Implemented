@@ -14,7 +14,7 @@ export function NewsletterSection(): JSX.Element {
         <div className="flex flex-col items-center gap-6 text-center">
           <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <Balancer>
-              <span className="px-4 pt-4 font-michroma md:flex">
+              <span className="px-4 pt-6 font-michroma md:flex text-3xl md:text-7xl">
                 ORANGE CUBE
               </span>
             </Balancer>
