@@ -1,6 +1,6 @@
 'use client'
 import Balancer from "react-wrap-balancer"
-// import Terminal from "../forms/terminal"
+import Terminal from "../forms/terminal"
 export function NewsletterSection(): JSX.Element {
   return (
     <section
@@ -9,12 +9,12 @@ export function NewsletterSection(): JSX.Element {
       className="w-full bg-background md:py-10 min-h-screen"
     >
       <div className="mx-auto flex flex-col md:justify-center md:items-center md:gap-8 md:px-4 min-h-screen pt-8">
-        <img src="/orange-cube-main.png" alt="Your GIF" className="mb-2 md:flex md:max-w-3xl" />
+        <img src="/orange-cube-main.png" alt="Your GIF" className="mb-2 md:flex md:max-w-3xl gap-6" />
 
         <div className="flex flex-col items-center gap-6 text-center">
           <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <Balancer>
-              <span className="px-4 pt-6 font-michroma md:flex text-3xl md:text-7xl">
+              <span className="px-4 pt-6 font-michroma md:flex text-3xl md:text-7xl gap-6">
                 ORANGE CUBE
               </span>
             </Balancer>
@@ -32,7 +32,7 @@ export function NewsletterSection(): JSX.Element {
           {/* <NewsletterSignUpForm /> */}
         </div>
       
-  {/* <Terminal /> */}
+  <Terminal />
 
       </div>
     </section>

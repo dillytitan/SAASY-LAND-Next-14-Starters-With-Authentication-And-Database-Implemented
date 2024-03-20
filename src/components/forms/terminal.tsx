@@ -1,9 +1,7 @@
-
-/* eslint-disable @typescript-eslint/no-misused-promises */
 // Import React and useState, useEffect, useRef hooks
 import React, { useState, useEffect, useRef } from 'react';
 import type { FC } from 'react';
-
+import JSConfetti from 'js-confetti';
 
 // Define type for questions and history items
 type Question = {
@@ -23,7 +21,15 @@ interface FileContents {
 
 
 type HistoryItem = React.ReactNode;
+// eslint-disable-next-line @typescript-eslint/unbound-method
+const originalAddConfetti = JSConfetti.prototype.addConfetti;
 
+JSConfetti.prototype.addConfetti = function (...args) {
+  console.log('Appending canvas to the document.');
+  return originalAddConfetti.apply(this, args);
+};
+
+const jsConfetti = new JSConfetti();
 const questions: Question[] = [
   { prompt: "Enter the cube? (y/n)", answer: "y", hint: "" },
   { prompt: "Wen?", answer: "2009", hint: "What year did it start?" },
@@ -96,6 +102,7 @@ const Terminal: FC = () => {
   const [viewingFileContent, setViewingFileContent] = useState<string | null>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(-1);
+  const [gameCompleted, setGameCompleted] = useState<boolean>(false);
 
   useEffect(() => {
     const terminalElement = terminalRef.current;
@@ -130,25 +137,20 @@ const Terminal: FC = () => {
     if (currentQuestionIndex >= 0 && currentQuestionIndex < questions.length) {
       const currentQuestion = questions[currentQuestionIndex];
       if (currentQuestion && cmd.trim().toLowerCase() === currentQuestion.answer.toLowerCase()) {
-        // Correct answer
         const nextIndex = currentQuestionIndex + 1;
         if (nextIndex < questions.length) {
-          setCurrentQuestionIndex(nextIndex); // Proceed to next question
+          setCurrentQuestionIndex(nextIndex);
           addCommandToHistory(cmd, <span className="text-green-500">Correct!</span>);
-          addCommandToHistory("", <span>{questions[nextIndex]?.prompt}</span>); // Show next question with null check
+          addCommandToHistory("", <span>{questions[nextIndex]?.prompt}</span>);
         } else {
-          // All questions answered correctly
-          setCurrentQuestionIndex(-1); // Reset game index
+          setCurrentQuestionIndex(-1); 
           addCommandToHistory(cmd, <span className="text-green-500">Correct! You&apos;ve completed the challenge.</span>);
-          // Show completion message
           addCommandToHistory("", <pre>{`Whois Orangecube\n${fileContents["about.txt"]}\n${fileContents["mission.txt"]}`}</pre>);
         }
       } else if (!viewingFileContent) {
-        // Incorrect answer and not viewing a file
         addCommandToHistory(cmd, <span className="text-red-500">Incorrect. Try again or type &lsquo;hint&rsquo; for a hint.</span>);
       }
     } else if (!viewingFileContent) {
-      // Command not recognized and not part of the game
       addCommandToHistory(cmd, <span className="text-red-500">Command not found: {cmd}</span>);
     }
   };
@@ -156,7 +158,7 @@ const Terminal: FC = () => {
 
   const processCommand = async (cmd: string) => {
     if (viewingFileContent && cmd.trim().toLowerCase() === 'exit') {
-      setViewingFileContent(null); // Exit file view mode
+      setViewingFileContent(null); 
       return;
     }
   
@@ -173,12 +175,12 @@ const Terminal: FC = () => {
 
     if (currentQuestionIndex === questions.length - 1 && input.trim().toLowerCase() === questions[currentQuestionIndex]?.answer?.toLowerCase()) {
       try {
-        const response = await fetch('/api/kv', { // Updated endpoint
+        const response = await fetch('/api/kv', { 
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
           },
-          body: JSON.stringify({}) // Send additional data here if needed
+          body: JSON.stringify({}) 
       });
   
           if (!response.ok) {
@@ -186,7 +188,7 @@ const Terminal: FC = () => {
           }
 
           const { uniqueCode } = await response.json() as GenerateCodeResponse;
-          addCommandToHistory(input, <span className="text-green-500">Your unique code: {uniqueCode}. Use this in Discord to claim your role.</span>);
+          addCommandToHistory(input, <span className="text-green-500">Congratulation! Your unique code: {uniqueCode}. Use the /redeem command in Discord to claim your special role.</span>);
           
 
           // Game completion logic here
@@ -257,23 +259,34 @@ const Terminal: FC = () => {
         break;
       case 'cube':
         if (currentQuestionIndex === -1) {
-          // Start the game by setting the current question index to 0
           setCurrentQuestionIndex(0);
           setViewingFileContent(null); 
           const firstQuestionPrompt = questions[0]?.prompt; 
           addCommandToHistory(cmd, <span>{firstQuestionPrompt}</span>); 
         } else {
-          // Game already started
           addCommandToHistory(cmd, <span>You are already inside the cube. Answer the question or type &apos;hint&apos; for help.</span>);
         }
         break;
       case 'hint':
         if (currentQuestionIndex >= 0 && currentQuestionIndex < questions.length) {
-          // Provide a hint for the current question
           const hint = questions[currentQuestionIndex]?.hint; 
           addCommandToHistory(cmd, <span>{hint}</span>);
         }
         break;
+        case 'party':
+          console.log("Triggering confetti!"); 
+          jsConfetti.addConfetti({
+            emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
+            confettiNumber: 100,
+          })
+          .then(() => {
+            console.log('Confetti animation completed!');
+          })
+          .catch((error) => {
+            console.error('Confetti animation failed', error);
+          });
+          addCommandToHistory(cmd, <span>Party time!</span>);
+          break;
       default:
         handleAnswersAndCommands(cmd);
         break;
@@ -283,39 +296,56 @@ const Terminal: FC = () => {
   return null;
 };
  
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    
-    // Game completion scenario
+const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  console.log('Form submitted, page should not reload.');
+   // If the game is completed, check if the input is a reset command
+   if (gameCompleted && input.trim().toLowerCase() !== 'reset') {
+    console.log("Game completed. Type 'reset' to start a new game.");
+    setInput('');
+    return; 
+  }
+  if (input.trim().toLowerCase() === 'reset') {
+    // Reset game state to allow new inputs and start a new game session
+    setGameCompleted(false);
+    setCurrentQuestionIndex(-1);
+    setHistory(['Type \'help\' to get started']); // Optionally reset the command history
+    // Any other state resets needed
+    console.log("Game reset. Ready for a new game.");
+    setInput('');
+    return; // Prevent further processing of the 'reset' command beyond resetting state
+  }
+  void (async () => {
     if (currentQuestionIndex === questions.length - 1 && input.trim().toLowerCase() === questions[currentQuestionIndex]?.answer?.toLowerCase()) {
-        try {
-          const response = await fetch('/api/kv', { // Note the endpoint change
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({}) // You can adjust if you decide to send additional data
-        })
+      try {
+        const response = await fetch('/api/kv', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({})
+        });
 
-            if (!response.ok) {
-                throw new Error('Failed to generate code');
-            }
-
-            const { uniqueCode } = await response.json() as GenerateCodeResponse;
-addCommandToHistory(input, <span className="text-green-500">Your unique code: {uniqueCode}. Use this in Discord to claim your role.</span>);
-
-            setCurrentQuestionIndex(-1); // Reset the game state
-        } catch (error) {
-            console.error('Error during code generation:', error);
-            addCommandToHistory(input, <span>There was a problem generating your unique code. Please try again.</span>);
+        if (!response.ok) {
+            throw new Error('Failed to generate code');
         }
-    } else {
-      
-      await processCommand(input);
-    }
 
-    setInput(''); // Clear the input field
-  };
+        const { uniqueCode } = await response.json() as GenerateCodeResponse;
+        addCommandToHistory(input, <span className="text-green-500">Congratulations! Your unique code: {uniqueCode}. Use the /redeem command in Discord to claim your special role.</span>);
+
+        setCurrentQuestionIndex(-1);
+      } catch (error) {
+          console.error('Error during code generation:', error);
+          addCommandToHistory(input, <span>There was a problem generating your unique code. Please try again.</span>);
+      }
+    } else {
+      // The catch method is used here to handle any potential errors from processCommand.
+      processCommand(input).catch(error => console.error("Error processing command:", error));
+    }
+  })();
+
+  setInput('');
+};
 
 
 return (

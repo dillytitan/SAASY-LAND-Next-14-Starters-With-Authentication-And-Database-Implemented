@@ -83,3 +83,12 @@
 .caret-transparent {
   caret-color: transparent;
 }
+
+.canvas {
+  z-index: 9999; /* Ensure this is higher than other elements */
+  position: fixed; /* Position fixed to cover the whole screen */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
