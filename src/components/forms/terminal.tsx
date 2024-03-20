@@ -32,9 +32,9 @@ JSConfetti.prototype.addConfetti = function (...args) {
 
 const jsConfetti = new JSConfetti();
 const questions: Question[] = [
-  { prompt: "Enter the cube? (y/n)", answer: "y", hint: "" },
+  { prompt: "Would you like to enter the cube? (y/n)", answer: "y", hint: "" },
   { prompt: "Wen?", answer: "2009", hint: "What year did it start?" },
-  { prompt: "Why?", answer: "second bailout", hint: "When banks faltered and the economy quaked, Bitcoin emerged from the _ _ _ _ _ _  _ _ _ _ _ _ _?" },
+  { prompt: "Why?", answer: "second bailout", hint: "Bitcoin emerged from the _ _ _ _ _ _  _ _ _ _ _ _ _?" },
   { prompt: "What?", answer: "genesis block", hint: "In the beginning, what happened?" },
   { prompt: "Who?", answer: "satoshi nakamoto", hint: "Who is Anon?" },
 ];
@@ -210,7 +210,7 @@ const Terminal: FC = () => {
             <div><span className="text-orange-500">logo</span> – Show the company logo</div>
             <div><span className="text-orange-500">ls</span> – List files</div>
             <div><span className="text-orange-500">vi [file]</span> – View a file (about.txt, mission.txt, contact.txt)</div>
-            <div><span className="text-orange-500">cube</span> – Enter the cube (Starts the game)</div>
+            <div><span className="text-orange-500">cube</span> – Enter the cube</div>
             <div><span className="text-orange-500">join</span> – Join Our Discord</div>
           </>
         );
