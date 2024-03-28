@@ -370,8 +370,8 @@ return (
     ))}
     {/* Input form */}
     <form onSubmit={handleSubmit} className="flex w-full font-space-mono">
-      <label className="mr-2 hidden text-orange-500 md:flex">admin@orangecube:~/</label>
-      <label className="mr-2 text-orange-500 md:hidden">admin:~/</label>
+      <label className="mr-2 hidden text-orange-500 md:flex">admin@OCA:~/</label>
+      <label className="mr-2 text-orange-500 md:hidden">admin@OCA:~/</label>
       <input
         type="text"
         value={input}
