@@ -39,7 +39,6 @@ const questions: Question[] = [
   { prompt: "Who?", answer: "satoshi nakamoto", hint: "Who is Anon?" },
 ];
 
-// Define file contents
 const fileContents: FileContents = {
   "about.txt": `exclusive digital arthouse
 
@@ -207,7 +206,7 @@ const Terminal: FC = () => {
           <>
             <div><span className="text-orange-500">help</span> – Show this help message</div>
             <div><span className="text-orange-500">clear</span> – Clears the terminal</div>
-            <div><span className="text-orange-500">logo</span> – Show the company logo</div>
+            {/* <div><span className="text-orange-500">logo</span> – Show the company logo</div> */}
             <div><span className="text-orange-500">ls</span> – List files</div>
             <div><span className="text-orange-500">vi [file]</span> – View a file (about.txt, mission.txt, contact.txt)</div>
             <div><span className="text-orange-500">cube</span> – Enter the cube</div>
@@ -221,7 +220,7 @@ const Terminal: FC = () => {
         break;
         case 'logo':
           addCommandToHistory(cmd, (
-            <pre className="text-orange-500">
+            <pre className="text-orange-500 sm:text-xs">
           {`
       ********************************************************************************
       ********************************************************************************
