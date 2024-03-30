@@ -19,7 +19,7 @@ export function NewsletterSection(): JSX.Element {
               </span>
             </Balancer>
           </h2>
-          <h3 className="hidden text-muted-foreground sm:text-xl sm:leading-8 md:max-w-[42rem]">
+          <h3 className="hidden md:flex text-muted-foreground sm:text-xl sm:leading-8 md:max-w-[42rem]">
             <Balancer>
               Preserving artifacts, defining contemporary.
             </Balancer>
