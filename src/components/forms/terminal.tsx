@@ -369,7 +369,7 @@ return (
       <div key={index} >{item}</div>
     ))}
     {/* Input form */}
-    <form onSubmit={handleSubmit} className="flex w-full font-space-mono">
+    <form onSubmit={handleSubmit} className="flex w-full font-space-mono pt-4">
       <label className="mr-2 hidden text-orange-500 md:flex">admin@OCA:~/</label>
       <label className="mr-2 text-orange-500 md:hidden">admin@OCA:~/</label>
       <input
