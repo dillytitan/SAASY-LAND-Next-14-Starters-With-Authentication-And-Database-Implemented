@@ -2,7 +2,7 @@
 // Import React and useState, useEffect, useRef hooks
 import React, { useState, useEffect, useRef } from 'react';
 import type { FC } from 'react';
-import JSConfetti from 'js-confetti';
+
 
 // Define type for questions and history items
 type Question = {
@@ -22,15 +22,7 @@ interface FileContents {
 
 
 type HistoryItem = React.ReactNode;
-// eslint-disable-next-line @typescript-eslint/unbound-method
-const originalAddConfetti = JSConfetti.prototype.addConfetti;
 
-JSConfetti.prototype.addConfetti = function (...args) {
-  console.log('Appending canvas to the document.');
-  return originalAddConfetti.apply(this, args);
-};
-
-const jsConfetti = new JSConfetti();
 const questions: Question[] = [
   { prompt: "Would you like to enter the cube? (y/n)", answer: "y", hint: "" },
   { prompt: "Wen?", answer: "2009", hint: "What year did it start?" },
@@ -278,28 +270,6 @@ const Terminal: FC = () => {
           addCommandToHistory(cmd, <span>{hint}</span>);
         }
         break;
-        case 'party':
-          console.log("Triggering confetti!"); 
-          jsConfetti.addConfetti({
-            emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
-            confettiNumber: 100,
-          })
-          
-          .then(() => {
-            console.log('Confetti animation completed!');
-          })
-          .catch((error) => {
-            console.error('Confetti animation failed', error);
-          });
-          addCommandToHistory(cmd, <span>Party time!</span>);
-          const canvas = document.querySelector('canvas');
-if (canvas) {
-  const context = canvas.getContext('2d');
-  console.log('Canvas context:', context);
-} else {
-  console.log('No canvas found');
-}
-          break;
       default:
         handleAnswersAndCommands(cmd);
         break;
