@@ -37,7 +37,7 @@ export async function Header(): Promise<JSX.Element> {
         {/* <Navigation navItems={siteConfig.navItems} /> */}
         <div className="flex items-center justify-center gap-x-2 md:gap-x-4">
      
-        <JoinDiscordButton inviteLink="https://discord.gg/4RvS8ZwRcj" />
+        <JoinDiscordButton inviteLink="https://discord.gg/orangecube" />
           <ThemeToggle />
           
           {/* <NavigationMobile navItems={siteConfig.navItems} /> */}
