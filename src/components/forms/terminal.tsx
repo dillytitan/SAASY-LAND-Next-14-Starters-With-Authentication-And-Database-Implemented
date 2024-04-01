@@ -180,7 +180,7 @@ const Terminal: FC = () => {
           }
 
           const { uniqueCode } = await response.json() as GenerateCodeResponse;
-          addCommandToHistory(input, <span className="text-green-500">Congratulation! Your unique code: {uniqueCode}. Use the /redeem command in Discord to claim your special role.</span>);
+          addCommandToHistory(input, <span className="text-green-500">Congratulation! Your unique code: {uniqueCode}. Use the /redeem command in the Terminal channel in Discord to claim your special role.</span>);
           
 
           // Game completion logic here
