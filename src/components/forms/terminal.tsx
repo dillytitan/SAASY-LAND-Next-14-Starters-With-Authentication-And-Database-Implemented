@@ -180,7 +180,7 @@ const Terminal: FC = () => {
           }
 
           const { uniqueCode } = await response.json() as GenerateCodeResponse;
-          addCommandToHistory(input, <span className="text-green-500">Congratulation! Your unique code: {uniqueCode}. Use the /redeem command in the Terminal channel in Discord to claim your special role.</span>);
+          addCommandToHistory(input, <span className="text-green-500">Congratulations! Your unique code is: {uniqueCode}. Please use the &apos;/redeem&apos; command in the &apos;Terminal&apos; channel on Discord to claim your special role.</span>);
           
 
           // Game completion logic here
@@ -310,11 +310,11 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to generate code');
+          throw new Error('Failed to generate code');
         }
 
         const { uniqueCode } = await response.json() as GenerateCodeResponse;
-        addCommandToHistory(input, <span className="text-green-500">Congratulations! Your unique code: {uniqueCode}. Use the /redeem command in Discord to claim your special role.</span>);
+        addCommandToHistory(input, <span className="text-green-500">Congratulations! Your unique code is: {uniqueCode}. Please use the &apos;/redeem&apos; command in the &apos;Terminal&apos; channel on Discord to claim your special role.</span>);
 
         setCurrentQuestionIndex(-1);
       } catch (error) {
