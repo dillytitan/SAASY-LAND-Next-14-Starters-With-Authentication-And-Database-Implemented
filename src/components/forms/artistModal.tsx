@@ -5,6 +5,7 @@ import type { FC } from 'react';
 import PressReleaseModal from './press-release';
 
 interface ArtistModalProps {
+  artistName: string;
   onClose: () => void;
 }
 
