@@ -13,11 +13,11 @@ interface PressRelease {
     onClose: () => void;
   }
   
-  const pressReleases: PressRelease[] = [
-    { id: 1, title: "Tan Tan's Release", content: "Details of Tan Tan's press release..." },
-    { id: 2, title: "Jane Doe's Release", content: "Details of Jane Doe's press release..." },
-    // Add other press releases
-  ];
+//   const pressReleases: PressRelease[] = [
+//     { id: 1, title: "Tan Tan's Release", content: "Details of Tan Tan's press release..." },
+//     { id: 2, title: "Jane Doe's Release", content: "Details of Jane Doe's press release..." },
+//     // Add other press releases
+//   ];
 
 interface PressReleaseModalProps {
   onClose: () => void;
@@ -29,7 +29,7 @@ const PressReleaseModal: FC<PressReleaseModalProps> = ({ pdfUrl, onClose }) => {
         <Draggable>
           <div className="w-full max-w-lg border-2 border-black bg-white dark:border-orange-500 dark:bg-black">
             <div className="flex items-center justify-between border-b-2 border-black px-4 py-1 dark:border-orange-500">
-              <p>press-release.exe</p>
+              <p>learn.pdf</p>
               <button onClick={onClose} className="px-2 py-1 font-bold">X</button>
             </div>
             <iframe

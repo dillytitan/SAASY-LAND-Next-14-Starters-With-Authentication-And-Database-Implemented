@@ -53,11 +53,12 @@ const ArtistModal: FC<ArtistModalProps> = ({ onClose }) => {
             <p>artist.exe</p>
             <button onClick={onClose} className="px-2 py-1 font-bold">X</button>
           </div>
-          <div className="h-auto overflow-auto bg-gray-100 p-2 text-black dark:bg-black dark:text-orange-500">
+          <div className="h-auto overflow-auto bg-gray-100  text-black dark:bg-black dark:text-orange-500">
             {selectedArtist ? (
               <>
-                <p className="border-2 border-black bg-white p-4 dark:border-orange-500 dark:bg-black">
-                  <strong>{selectedArtist.name}</strong>
+              <div className ="pb-4">
+                <p className="border-b-2 border-black bg-white p-4 dark:border-orange-500 dark:bg-black">
+                  <strong className="uppercase">{selectedArtist.name}</strong>
                 </p>
                 <p className="uppercase p-4">{selectedArtist.description}</p>
                 {/* <p>{selectedArtist.project}</p> */}
@@ -66,6 +67,7 @@ const ArtistModal: FC<ArtistModalProps> = ({ onClose }) => {
                 </div>
                 <div className="pl-4">
                 <button className="uppercase underline" onClick={() => setSelectedArtist(null)}>Back to list</button>
+                </div>
                 </div>
               </>
             ) : (
