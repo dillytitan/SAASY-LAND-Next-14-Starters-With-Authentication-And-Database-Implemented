@@ -2,7 +2,7 @@
 // Import React and useState, useEffect, useRef hooks
 import React, { useState, useEffect, useRef } from 'react';
 import type { FC } from 'react';
-
+import ArtistModal from './artistModal';
 
 // Define type for questions and history items
 type Question = {
@@ -95,6 +95,9 @@ const Terminal: FC = () => {
   const terminalRef = useRef<HTMLDivElement>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(-1);
   const [gameCompleted, setGameCompleted] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentArtist, setCurrentArtist] = useState('');
+
 
   useEffect(() => {
     const terminalElement = terminalRef.current;
@@ -164,6 +167,12 @@ const Terminal: FC = () => {
         return;
       }
     }
+    if (cmd.trim().toLowerCase() === 'run artist.exe') {
+      setIsModalOpen(true);
+      setCurrentArtist('');  // Assuming you want to show all artists initially
+      addCommandToHistory(cmd, <span>Artist application running...</span>);
+      return;
+    }
 
     if (currentQuestionIndex === questions.length - 1 && input.trim().toLowerCase() === questions[currentQuestionIndex]?.answer?.toLowerCase()) {
       try {
@@ -196,13 +205,13 @@ const Terminal: FC = () => {
       case 'help':
         const helpOutput = (
           <>
-            <div><span className="text-orange-500">help</span> – Show this help message</div>
-            <div><span className="text-orange-500">clear</span> – Clears the terminal</div>
-            {/* <div><span className="text-orange-500">logo</span> – Show the company logo</div> */}
+            <div><span className="text-orange-500">help</span> – Show help message</div>
+            <div><span className="text-orange-500">clear</span> – Clear the terminal</div>
             <div><span className="text-orange-500">ls</span> – List files</div>
+            <div><span className="text-orange-500">run artist.exe</span>- View a artist profile</div>
             <div><span className="text-orange-500">vi [file]</span> – View a file (about.txt, mission.txt, contact.txt)</div>
             <div><span className="text-orange-500">cube</span> – Enter the cube</div>
-            <div><span className="text-orange-500">join</span> – Join Our Discord</div>
+            <div><span className="text-orange-500">join</span> – Join our Discord</div>
           </>
         );
         addCommandToHistory(cmd, helpOutput);
@@ -333,20 +342,18 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 
 return (
   <div ref={terminalRef} className="min-h-screen w-full overflow-y-auto px-4 md:px-0 md:pt-8">
+    <div className="text-xs italic tracking-tight">v0.0.1</div>
 
-    {/* Command history */}
+    {isModalOpen && <ArtistModal artistName={currentArtist} onClose={() => setIsModalOpen(false)} />}
     {history.map((item, index) => (
-      <div key={index} >{item}</div>
+      <div key={index}>{item}</div>
     ))}
-    {/* Input form */}
-    <form onSubmit={handleSubmit} className="flex w-full font-space-mono pt-4">
-      <label className="mr-2 hidden text-orange-500 md:flex">admin@OCA:~/</label>
-      <label className="mr-2 text-orange-500 md:hidden">admin@OCA:~/</label>
+    <form onSubmit={handleSubmit} className="flex w-full pt-4 font-space-mono">
       <input
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="m-0 flex-1 border-none bg-background p-0 font-space-mono text-base text-black outline-none dark:text-white md:text-sm lg:text-base" // Adjust font sizes here
+        className="m-0 flex-1 border-none bg-background p-0 font-space-mono text-base text-black outline-none dark:text-white md:text-sm lg:text-base"
         autoFocus
       />
     </form>
