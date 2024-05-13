@@ -51,14 +51,21 @@ const ArtistModal: FC<ArtistModalProps> = ({ onClose }) => {
   <div className="w-full max-w-lg border-2 border-black bg-white dark:border-orange-500 dark:bg-black">
     <div className="handle flex items-center justify-between border-b-2 border-black px-4 py-1 dark:border-orange-500">
       <div className="handle">artist.exe</div>
-      <button onClick={onClose} className="px-2 py-1 font-bold">X</button>
+      
     </div>
     <div className="modal-content">
           <div className="h-auto overflow-auto bg-gray-100  text-black dark:bg-black dark:text-orange-500">
+            <div className="flex justify-between">
+              <div className="flex py-2">
+              <div className="pl-4">File</div>
+              <div className="pl-4">Help</div>
+              </div>
+          <button onClick={onClose} className="px-2 py-1 font-bold">X</button>
+          </div>
             {selectedArtist ? (
               <>
               <div className ="pb-4">
-                <p className="border-b-2 border-black bg-white p-4 dark:border-orange-500 dark:bg-black">
+                <p className="border-y-2 border-black bg-white p-4 dark:border-orange-500 dark:bg-black">
                   <strong className="uppercase">{selectedArtist.name}</strong>
                 </p>
                 <p className="uppercase p-4">{selectedArtist.description}</p>
