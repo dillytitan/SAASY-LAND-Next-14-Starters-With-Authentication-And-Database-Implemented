@@ -348,15 +348,16 @@ return (
     {history.map((item, index) => (
       <div key={index}>{item}</div>
     ))}
-    <form onSubmit={handleSubmit} className="flex w-full pt-4 font-space-mono">
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        className="m-0 flex-1 border-none bg-background p-0 font-space-mono text-base text-black outline-none dark:text-white md:text-sm lg:text-base"
-        autoFocus
-      />
-    </form>
+    <form onSubmit={handleSubmit} className="flex w-full pt-4 items-center font-space-mono">
+  <span className="text-orange-500 mr-2 text-lg">@OCA-Admin</span>
+  <input
+    type="text"
+    value={input}
+    onChange={(e) => setInput(e.target.value)}
+    className="flex-1 border-none bg-background p-0 text-base text-black outline-none dark:text-white"
+    autoFocus
+  />
+</form>
   </div>
 );
 };
