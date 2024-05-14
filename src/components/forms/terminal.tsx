@@ -349,7 +349,7 @@ return (
       <div key={index}>{item}</div>
     ))}
     <form onSubmit={handleSubmit} className="flex w-full pt-4 items-center font-space-mono">
-  <span className="text-orange-500 mr-2 text-lg">@OCA-Admin</span>
+  <span className="text-orange-500 mr-2 text-lg">OCA:~$</span>
   <input
     type="text"
     value={input}
