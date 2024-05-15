@@ -97,8 +97,10 @@ const ArtistModal: FC<ArtistModalProps> = ({ onClose }) => {
       {/* Show the relevant press release modal if requested */}
       {pdfUrl && (
         <PressReleaseModal
-          pdfUrl={pdfUrl}
-          onClose={() => setPdfUrl(null)} pressReleaseId={null}        />
+        pdfUrl={pdfUrl}
+        onClose={() => setPdfUrl(null)}
+        pressReleaseId={null} // Correctly passed if required by the component
+      />
       )}
     </div>
     
