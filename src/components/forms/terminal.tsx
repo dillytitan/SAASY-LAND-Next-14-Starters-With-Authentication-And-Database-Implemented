@@ -260,7 +260,7 @@ const Terminal: FC = () => {
         addCommandToHistory(cmd, <pre>{"about.txt\nmission.txt\ncontact.txt"}</pre>); 
         break;
       case 'join':
-        window.open('https://discord.gg/4RvS8ZwRcj', '_blank'); 
+        window.open('https://discord.gg/orangecube', '_blank'); 
         addCommandToHistory(cmd, <span>Opening Discord...</span>);
         break;
       case 'cube':
