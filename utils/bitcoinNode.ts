@@ -2,9 +2,9 @@
 import axios from 'axios';
 import { type BlockchainInfo, type NetworkInfo } from './types';
 
-const bitcoinNodeUrl = process.env.NEXT_PUBLIC_BITCOIN_NODE_URL as string;
-const bitcoinNodeUser = process.env.NEXT_PUBLIC_BITCOIN_NODE_USER as string;
-const bitcoinNodePassword = process.env.NEXT_PUBLIC_BITCOIN_NODE_PASSWORD as string;
+const bitcoinNodeUrl = process.env.BITCOIN_NODE_URL as string;
+const bitcoinNodeUser = process.env.BITCOIN_NODE_USER as string;
+const bitcoinNodePassword = process.env.BITCOIN_NODE_PASSWORD as string;
 
 if (!bitcoinNodeUrl || !bitcoinNodeUser || !bitcoinNodePassword) {
   throw new Error('Missing necessary environment variables');
