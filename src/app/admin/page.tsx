@@ -1,4 +1,3 @@
-'use client';
 import { useEffect, useState } from 'react';
 import { getNodeStatus, getNetworkInfo, getUptime } from '../../../utils/bitcoinNode';
 import { type BlockchainInfo, type NetworkInfo } from '../../../utils/types'
@@ -12,6 +11,7 @@ export default function Component() {
   const [nodeStatus, setNodeStatus] = useState<BlockchainInfo | null>(null);
   const [networkInfo, setNetworkInfo] = useState<NetworkInfo | null>(null);
   const [uptime, setUptime] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +24,7 @@ export default function Component() {
         setUptime(uptimeData);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setError('Failed to fetch data from the node. Please check the console for more details.');
       }
     };
 
@@ -74,7 +75,9 @@ export default function Component() {
           <CardContent>
             <div className="flex flex-col items-center gap-2">
               <BitcoinIcon className="size-12 text-primary" />
-              {nodeStatus ? (
+              {error ? (
+                <div className="text-red-600">{error}</div>
+              ) : nodeStatus ? (
                 <>
                   <div className="text-lg font-semibold text-primary">Running</div>
                   <div className="flex items-center gap-1 text-sm text-muted-foreground">

@@ -2,63 +2,98 @@
 import axios from 'axios';
 import { type BlockchainInfo, type NetworkInfo } from './types';
 
-const bitcoinNodeUrl = process.env.BITCOIN_NODE_URL as string;
-const bitcoinNodeUser = process.env.BITCOIN_NODE_USER as string;
-const bitcoinNodePassword = process.env.BITCOIN_NODE_PASSWORD as string;
+const bitcoinNodeUrl = process.env.NEXT_PUBLIC_BITCOIN_NODE_URL as string;
+const bitcoinNodeUser = process.env.NEXT_PUBLIC_BITCOIN_NODE_USER as string;
+const bitcoinNodePassword = process.env.NEXT_PUBLIC_BITCOIN_NODE_PASSWORD as string;
+
+if (!bitcoinNodeUrl || !bitcoinNodeUser || !bitcoinNodePassword) {
+  throw new Error('Missing necessary environment variables');
+}
 
 const auth = {
   username: bitcoinNodeUser,
   password: bitcoinNodePassword,
 };
 
-interface BitcoinNodeResponse<T> {
+console.log('Bitcoin Node URL:', bitcoinNodeUrl); // Logging the URL for debugging
+
+interface JsonRpcResponse<T> {
   result: T;
+  error?: {
+    code: number;
+    message: string;
+  };
+  id: string;
 }
 
 export async function getNodeStatus(): Promise<BlockchainInfo> {
-  const response = await axios.post<BitcoinNodeResponse<BlockchainInfo>>(
-    bitcoinNodeUrl,
-    {
-      jsonrpc: '1.0',
-      id: 'curltext',
-      method: 'getblockchaininfo',
-      params: [],
-    },
-    { auth }
-  );
+  try {
+    const response = await axios.post<JsonRpcResponse<BlockchainInfo>>(
+      bitcoinNodeUrl,
+      {
+        jsonrpc: '1.0',
+        id: 'curltext',
+        method: 'getblockchaininfo',
+        params: [],
+      },
+      { auth }
+    );
 
-  const { data } = response;
-  return data.result;
+    if (response.data.error) {
+      throw new Error(response.data.error.message);
+    }
+
+    return response.data.result;
+  } catch (error) {
+    console.error('Error in getNodeStatus:', error);
+    throw error;
+  }
 }
 
 export async function getNetworkInfo(): Promise<NetworkInfo> {
-  const response = await axios.post<BitcoinNodeResponse<NetworkInfo>>(
-    bitcoinNodeUrl,
-    {
-      jsonrpc: '1.0',
-      id: 'curltext',
-      method: 'getnetworkinfo',
-      params: [],
-    },
-    { auth }
-  );
+  try {
+    const response = await axios.post<JsonRpcResponse<NetworkInfo>>(
+      bitcoinNodeUrl,
+      {
+        jsonrpc: '1.0',
+        id: 'curltext',
+        method: 'getnetworkinfo',
+        params: [],
+      },
+      { auth }
+    );
 
-  const { data } = response;
-  return data.result;
+    if (response.data.error) {
+      throw new Error(response.data.error.message);
+    }
+
+    return response.data.result;
+  } catch (error) {
+    console.error('Error in getNetworkInfo:', error);
+    throw error;
+  }
 }
 
 export async function getUptime(): Promise<number> {
-  const response = await axios.post<BitcoinNodeResponse<number>>(
-    bitcoinNodeUrl,
-    {
-      jsonrpc: '1.0',
-      id: 'curltext',
-      method: 'uptime',
-      params: [],
-    },
-    { auth }
-  );
+  try {
+    const response = await axios.post<JsonRpcResponse<number>>(
+      bitcoinNodeUrl,
+      {
+        jsonrpc: '1.0',
+        id: 'curltext',
+        method: 'uptime',
+        params: [],
+      },
+      { auth }
+    );
 
-  const { data } = response;
-  return data.result;
+    if (response.data.error) {
+      throw new Error(response.data.error.message);
+    }
+
+    return response.data.result;
+  } catch (error) {
+    console.error('Error in getUptime:', error);
+    throw error;
+  }
 }
