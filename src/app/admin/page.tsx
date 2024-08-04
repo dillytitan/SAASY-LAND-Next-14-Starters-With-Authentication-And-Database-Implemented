@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { getNodeStatus, getNetworkInfo, getUptime } from '../../../utils/bitcoinNode';
-import { type BlockchainInfo, type NetworkInfo } from '../../../utils/types'
+import { type BlockchainInfo, type NetworkInfo } from '../../../utils/types';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -23,9 +23,13 @@ export default function Component() {
         setNodeStatus(nodeStatusData);
         setNetworkInfo(networkInfoData);
         setUptime(uptimeData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setError('Failed to fetch data from the node. Please check the console for more details.');
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('Unknown error occurred');
+        }
       }
     };
 
@@ -77,7 +81,10 @@ export default function Component() {
             <div className="flex flex-col items-center gap-2">
               <BitcoinIcon className="size-12 text-primary" />
               {error ? (
-                <div className="text-red-600">{error}</div>
+                <div className="text-red-500">
+                  Failed to fetch data from the node.<br />
+                  Please check the console for more details.
+                </div>
               ) : nodeStatus ? (
                 <>
                   <div className="text-lg font-semibold text-primary">Running</div>
@@ -116,76 +123,7 @@ export default function Component() {
             </div>
           </CardFooter>
         </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Inscriptions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col items-center gap-2">
-              <LogInIcon className="size-12 text-primary" />
-              <div className="text-lg font-semibold text-primary">25</div>
-              <div className="text-sm text-muted-foreground">Total Inscriptions</div>
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button size="sm" variant="outline" className="w-full">
-              <PlusIcon className="mr-2 size-4" />
-              Inscribe
-            </Button>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Wallet Balance</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col items-center gap-2">
-              <BitcoinIcon className="size-12 text-primary" />
-              <div className="text-lg font-semibold text-primary">1.23456789 BTC</div>
-              <div className="text-sm text-muted-foreground">~ $25,000 USD</div>
-            </div>
-          </CardContent>
-          <CardFooter>
-            <div className="flex gap-2">
-              <Button size="sm" variant="outline" className="w-1/2">
-                <SendIcon className="mr-2 size-4" />
-                Send
-              </Button>
-              <Button size="sm" variant="outline" className="w-1/2">
-                <ReceiptIcon className="mr-2 size-4" />
-                Receive
-              </Button>
-            </div>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Transactions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-2">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <SendIcon className="size-4 text-muted-foreground" />
-                  <span className="text-sm">Sent</span>
-                </div>
-                <div className="text-sm">-0.1 BTC</div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <ReceiptIcon className="size-4 text-primary" />
-                  <span className="text-sm">Received</span>
-                </div>
-                <div className="text-sm text-primary">+0.2 BTC</div>
-              </div>
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Link href="#" className="text-sm font-medium" prefetch={false}>
-              View All Transactions
-            </Link>
-          </CardFooter>
-        </Card>
+        {/* Other Cards */}
       </div>
     </main>
   );
