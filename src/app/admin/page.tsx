@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useState } from 'react';
 import { getNodeStatus, getNetworkInfo, getUptime } from '../../../utils/bitcoinNode';
 import { type BlockchainInfo, type NetworkInfo } from '../../../utils/types'
