@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-// import { FaTwitter } from 'react-icons/fa';
 import emailjs from 'emailjs-com';
 import Link from 'next/link';
 
@@ -17,11 +16,15 @@ export default function OrangeListComponent() {
   const [newsletter, setNewsletter] = useState(false);
   const [currentField, setCurrentField] = useState('name');
   const [submitted, setSubmitted] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (currentField === 'newsletter') {
+      // Disable button to prevent multiple submissions
+      setButtonDisabled(true);
+
       const templateParams = {
         name,
         email,
@@ -83,22 +86,20 @@ export default function OrangeListComponent() {
         target="_blank"
         rel="noopener noreferrer"
         className="inline-block"
-      >
-        {/* <FaTwitter className="mx-auto mb-8 text-xl text-orange-500 hover:text-orange-600 sm:text-2xl" /> */}
-      </a>
+      />
       <div className="mb-4 px-2 text-sm sm:text-base">
         Welcome to Orange Cube Terminal. Please enter your details:
       </div>
       {!submitted ? (
         <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit(e).catch((err) => {
-            console.error('Error during form submission:', err);
-          });
-        }}
-        className="mx-auto max-w-sm space-y-4 px-4"
-      >
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(e).catch((err) => {
+              console.error('Error during form submission:', err);
+            });
+          }}
+          className="mx-auto max-w-sm space-y-4 px-4"
+        >
           <div className="text-sm sm:text-base">
             {currentField === 'name' && '> Enter your name:'}
             {currentField === 'email' && '> Enter your email:'}
@@ -127,9 +128,12 @@ export default function OrangeListComponent() {
           )}
           <Button
             type="submit"
-            className="w-full bg-orange-500 text-sm text-black hover:bg-orange-600 sm:text-base"
+            disabled={buttonDisabled}
+            className={`w-full text-sm text-black sm:text-base ${
+              buttonDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-orange-500 hover:bg-orange-600'
+            }`}
           >
-            Submit
+            {currentField === 'newsletter' ? 'Submit' : 'Next'}
           </Button>
         </form>
       ) : (
@@ -140,7 +144,9 @@ export default function OrangeListComponent() {
           <div>Twitter Handle: {twitterHandle}</div>
           <div>Wallet Address: {walletAddress}</div>
           <div>Subscribed to Newsletter: {newsletter ? 'Yes' : 'No'}</div>
-          <Link href="https://orangecube.art" target="_self" rel="noopener noreferrer" className='text-sm text-orange-500 hover:text-orange-600 sm:text-base'> Go to site</Link>
+          <div className="mt-8">
+          <Link href="https://twitter.com/orangecube_art" target="_self" rel="noopener noreferrer" className=' text-sm font-bold text-orange-500 underline hover:text-orange-600 sm:text-base'> Follow Us on X</Link>
+          </div>
         </div>
       )}
     </>
