@@ -140,7 +140,7 @@ export default function OrangeListComponent() {
           <div>Twitter Handle: {twitterHandle}</div>
           <div>Wallet Address: {walletAddress}</div>
           <div>Subscribed to Newsletter: {newsletter ? 'Yes' : 'No'}</div>
-          <Link href="https://orangecube.art" target="_blank" rel="noopener noreferrer"></Link>
+          <Link href="https://orangecube.art" target="_self" rel="noopener noreferrer" className='text-sm text-orange-500 hover:text-orange-600 sm:text-base'> Go to site</Link>
         </div>
       )}
     </>
