@@ -1,6 +1,8 @@
-import { withContentlayer } from "next-contentlayer"
+import { withContentlayer } from "next-contentlayer";
+import dotenv from 'dotenv';
 
-import("./src/env.mjs")
+// Load environment variables
+dotenv.config();
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
@@ -22,6 +24,11 @@ const nextConfig = {
       },
     ],
   },
-}
+  env: {
+    BITCOIN_NODE_URL: process.env.BITCOIN_NODE_URL,
+    BITCOIN_NODE_USER: process.env.BITCOIN_NODE_USER,
+    BITCOIN_NODE_PASSWORD: process.env.BITCOIN_NODE_PASSWORD,
+  },
+};
 
-export default withContentlayer(nextConfig)
+export default withContentlayer(nextConfig);

@@ -8,6 +8,7 @@ import { NewsletterSection } from "@/components/sections/newsletter-section"
 // import { TechSection } from "@/components/sections/tech-section"
 // import { TestimonialsSection } from "@/components/sections/testimonials-section"
 
+
 export default function LandingPage(): JSX.Element {
   return (
     <div className="grid w-full grid-cols-1 items-center justify-center gap-16 md:gap-32">
